@@ -1,11 +1,20 @@
 import express from 'express';
+import mongoose from 'mongoose';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 
-app.listen(3001);
+// connection to mongodb local
+mongoose.connect('mongodb://localhost:27017/undangan_pengajian')
+  .then((result) => app.listen(3001))
+  .catch((err) => console.log(err));
+
 // middleware
+app.use(express.json());
 
 // route
+app.use(userRoutes);
+
 app.get('/', (req, res) => {
   res.send('berhasil konek');
 });
