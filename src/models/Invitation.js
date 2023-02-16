@@ -13,7 +13,7 @@ const invitationSchema = new mongoose.Schema({
   tema: {
     type: String,
     require: [true, 'Tema harus diisi'],
-    minlength: [5, 'Tema setidaknya harus memiliki 5 karakter. Mohon isi tema dengan jelas dan singkat'],
+    minLength: [5, 'Tema setidaknya harus memiliki 5 karakter. Mohon isi tema dengan jelas dan singkat'],
   },
   lokasi: {
     type: String,
@@ -35,6 +35,12 @@ const invitationSchema = new mongoose.Schema({
     minlength: 11,
   }
 }, { timestamps: true });
+
+// validation on update
+invitationSchema.pre('findOneAndUpdate', function(next) {
+  this.options.runValidators = true;
+  next();
+});
 
 const Invitation = mongoose.model('invitation', invitationSchema);
 

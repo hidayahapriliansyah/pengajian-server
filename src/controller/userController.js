@@ -59,23 +59,44 @@ const invite_post = async (req, res) => {
 
   try {
     // const invitation = Invitation.create();
-    const invitation = await Invitation.create(req.body);
-    res.status(201).json(invitation);
+    const invitations = await Invitation.create(req.body);
+    res.status(201).json(invitations);
   } catch (err) {
     console.log(err);
   }
 };
 
-const invite_patch = (req, res) => {
-  
+const invite_create = (req, res) => {
+  res.send('Create Invitation Form');
+};
+
+const invite_detail = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const invitation = await Invitation.findOne({ _id: id });
+    res.status(200).json({ status: 'ok', invitation });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const invite_patch = async (req, res) => {
+  const id = req.params.id;
+  // TODO
+  // untuk update tidak boleh menggunakan params dari url, harus ngambil dari payload
+
+  try {
+    const invitation = await Invitation.findOneAndUpdate({ _id: id }, req.body);
+    res.status(201).json({ status: 'ok', invitation });
+    console.log(invitation);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const invite_delete = (req, res) => {
 
-};
-
-const invite_detail_get = (req, res) => {
-  res.send('invite detail get');
 };
 
 const profile_get = (req, res) => {
@@ -114,8 +135,9 @@ export default {
   login_post,
   invite_get,
   invite_post,
+  invite_create,
   invite_patch,
-  invite_detail_get,
+  invite_detail,
   invite_delete,
   endorse_delete,
   endorse_detail_get,

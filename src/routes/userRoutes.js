@@ -13,14 +13,13 @@ router.post('/login', userController.login_post);
 
 router.get('/invite', userController.invite_get);
 router.post('/invite', userController.invite_post);
-router.get('/invite/create', () => {});
-router.post('/invite/create', () => {});
-router.get('/invite/:id', () => {});
-router.get('/invite/:id/edit', () => {});
-router.patch('/invite/:id/edit', () => {});
+router.get('/invite/create', userController.invite_create);
+router.get('/invite/:id', userController.invite_detail);
+router.patch('/invite/:id', userController.invite_patch);
 
 router.get('/profile', () => {});
 router.get('/profile/edit', () => {});
+router.patch('/profile', () => {});
 
 router.get('/sponsor', () => {});
 router.get('/sponsor/create', () => {});
