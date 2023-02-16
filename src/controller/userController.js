@@ -1,9 +1,10 @@
-import User from '../models/User.js';
 import bcrypt from 'bcrypt';
+import User from '../models/User.js';
 import Invitation from '../models/Invitation.js';
+import Sponsor from '../models/Sponsor.js';
 
 const index = (req, res) => {
-  res.send('Dari conrolloersejdfjds')
+  res.send('Dari conrolloersejdfjds');
 };
 
 const signup_get = (req, res) => {
@@ -55,8 +56,6 @@ const invite_get = async (req, res) => {
 };
 
 const invite_post = async (req, res) => {
-  res.json(req.body);
-
   try {
     // const invitation = Invitation.create();
     const invitations = await Invitation.create(req.body);
@@ -66,11 +65,11 @@ const invite_post = async (req, res) => {
   }
 };
 
-const invite_create = (req, res) => {
+const invite_create_get = (req, res) => {
   res.send('Create Invitation Form');
 };
 
-const invite_detail = async (req, res) => {
+const invite_detail_get = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -80,6 +79,10 @@ const invite_detail = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+const invite_edit_get = (req, res) => {
+  res.send('View Edit Invitation');
 };
 
 const invite_patch = async (req, res) => {
@@ -166,24 +169,77 @@ const profile_patch = async (req, res) => {
   }
 };
 
-const endorse_get = (req, res) => {
-  res.send('endorse');
+const sponsor_get = async (req, res) => {
+  // TODO 
+  // send data all sponsorship and send to view
+
+  try {
+    const sponsor = await Sponsor.find({ user_id: '63eda20dd8da687c892116bb' });
+    res.status(200).json({ status: 'ok', sponsor });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-const endorse_post = (req, res) => {
+const sponsor_detail_get = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
 
+  try {
+    const sponsor = await Sponsor.find({ _id: id, user_id: '63eda20dd8da687c892116bb' });
+    if (sponsor.length === 0) {
+      console.log('kososng wo');
+      res.status(200).json({ status: 'ok', message: 'Tidak ada pengajuan sponsor' });
+    } else {
+      res.status(200).json({ status: 'ok', sponsor });
+    }
+  } catch (err) {
+    console.log(err);
+  };
 };
 
-const endorse_patch = (req, res) => {
-
+const sponsor_edit_get = (req, res) => {
+  res.send('Sponsor Edit View');
 };
 
-const endorse_delete = (req, res) => {
-
+const sponsor_create_get = (req, res) => {
+  res.send('Send To sponsor create view')
 };
 
-const endorse_detail_get = (req, res) => {
+const sponsor_post = async (req, res) => {
+  try {
+    const sponsor = await Sponsor.create(req.body);
+    res.status(201).json({ status: 'ok', sponsor });
+  } catch (err) {
+    console.log(err);
+  };
+};
 
+const sponsor_patch = async (req, res) => {
+  const id = req.params.id;
+  const filter = { _id: id, user_id: '63eda20dd8da687c892116bb' };
+
+  try {
+    const sponsor = await Sponsor.findOneAndUpdate(filter, req.body);
+    res.status(201).json(sponsor);
+  } catch (err) {
+    console.log(err);
+  };
+};
+
+const sponsor_delete = async (req, res) => {
+  const id = req.params.id;
+  const filter = { _id: id, user_id: '63eda20dd8da687c892116bb' };
+
+  try {
+    const sponsor = await Sponsor.findOneAndDelete(filter, req.body);
+    // jika tidak ada yang delete akan mengembalikan null
+    res.status(201).json(sponsor);
+  } catch (err) {
+    // Harus bisa error handling jika ID salah. Soalnya ini errornya jadi ke Object Id nya
+    console.log(err);
+    res.send(err);
+  };
 };
 
 export default {
@@ -194,15 +250,18 @@ export default {
   login_post,
   invite_get,
   invite_post,
-  invite_create,
+  invite_create_get,
+  invite_edit_get,
   invite_patch,
-  invite_detail,
+  invite_detail_get,
   invite_delete,
-  endorse_delete,
-  endorse_detail_get,
-  endorse_get,
-  endorse_patch,
-  endorse_post,
+  sponsor_delete,
+  sponsor_detail_get,
+  sponsor_get,
+  sponsor_create_get,
+  sponsor_post,
+  sponsor_patch,
+  sponsor_edit_get,
   profile_get,
   profile_edit,
   profile_patch,
