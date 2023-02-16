@@ -7,4 +7,5 @@ export * from './loginController.js';
 export * from './profileController.js';
 export * from './signupController.js';
 export * from './sponsorContoller.js';
+export * from './userNotificationController.js';
 export { index };

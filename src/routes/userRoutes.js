@@ -1,5 +1,5 @@
 import express from 'express';
-import userController from '../controller/userController.js'; 
+import * as userController from '../controller/userController/index.js'; 
 
 const router = express.Router();
 
@@ -31,7 +31,8 @@ router.get('/sponsor/:id/edit', userController.sponsor_edit_get);
 router.patch('/sponsor/:id', userController.sponsor_patch);
 router.delete('/sponsor/:id', userController.sponsor_delete);
 
-router.get('/notifications', () => {});
-router.patch('/notifications/:id', () => {});
+router.get('/notifications', userController.usernotifitacation_get);
+router.post('/notifications', userController.usernotification_post);
+router.patch('/notifications/:id', userController.usernotification_patch);
 
 export default router;
