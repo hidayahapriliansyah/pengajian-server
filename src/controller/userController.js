@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
+import Invitation from '../models/Invitation.js';
 
 const index = (req, res) => {
   res.send('Dari conrolloersejdfjds')
@@ -44,12 +45,25 @@ const login_post = async (req, res) => {
   };
 };
 
-const invite_get = (req, res) => {
-  res.send('invite');
+const invite_get = async (req, res) => {
+  try {
+    const invitations = await Invitation.find();
+    res.status(200).json({ status: 'ok', invitations });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-const invite_post = (req, res) => {
+const invite_post = async (req, res) => {
+  res.json(req.body);
 
+  try {
+    // const invitation = Invitation.create();
+    const invitation = await Invitation.create(req.body);
+    res.status(201).json(invitation);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const invite_patch = (req, res) => {

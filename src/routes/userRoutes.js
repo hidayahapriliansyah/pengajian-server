@@ -11,8 +11,8 @@ router.post('/signup', userController.signup_post);
 router.get('/login', userController.login_get);
 router.post('/login', userController.login_post);
 
-router.get('/invite', () => {});
-router.post('/invite', () => {});
+router.get('/invite', userController.invite_get);
+router.post('/invite', userController.invite_post);
 router.get('/invite/create', () => {});
 router.post('/invite/create', () => {});
 router.get('/invite/:id', () => {});
