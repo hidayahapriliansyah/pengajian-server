@@ -37,7 +37,7 @@ const invitationSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // validation on update
-invitationSchema.pre('findOneAndUpdate', function(next) {
+invitationSchema.pre('findByIdAndUpdate', function(next) {
   this.options.runValidators = true;
   next();
 });

@@ -70,6 +70,11 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
+userSchema.pre('findByIdAndUpdate', function(next) {
+  this.options.runValidators = true;
+  next();
+});
+
 const User = mongoose.model('user', userSchema);
 
 export default User;

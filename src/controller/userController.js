@@ -74,7 +74,8 @@ const invite_detail = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const invitation = await Invitation.findOne({ _id: id });
+    const invitation = await Invitation.findById(id);
+    // TODO handle if invitaion is null
     res.status(200).json({ status: 'ok', invitation });
   } catch (err) {
     console.log(err);
@@ -87,7 +88,8 @@ const invite_patch = async (req, res) => {
   // untuk update tidak boleh menggunakan params dari url, harus ngambil dari payload
 
   try {
-    const invitation = await Invitation.findOneAndUpdate({ _id: id }, req.body);
+    const invitation = await Invitation.findByIdAndUpdate(id, req.body);
+    // TODO handle if invitaion is null
     res.status(201).json({ status: 'ok', invitation });
     console.log(invitation);
   } catch (err) {
@@ -95,16 +97,73 @@ const invite_patch = async (req, res) => {
   }
 };
 
-const invite_delete = (req, res) => {
+const invite_delete = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  // TODO
+  // untuk update tidak boleh menggunakan params dari url, harus ngambil dari payload
 
+  try {
+    const invitation = await Invitation.findOneAndRemove({ _id: id });
+    res.status(201).json({ status: 'ok', invitation });
+    console.log(invitation);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-const profile_get = (req, res) => {
-  res.send('profile');
+const profile_get = async (req, res) => {
+  const { userId } = req.body;
+  // TODO get user ID from jwt
+
+  // Send user data to see
+  try {
+    const user = await User.findById(userId);
+    // TODO
+    // check if user is null
+    res.status(200).json(user);
+    // res.send('profile');
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-const profile_patch = (req, res) => {
+const profile_edit = async (req, res) => {
+  // TODO
+  // send user profile data to edit view
+  const { userId } = req.body;
+  // TODO get user ID from jwt
 
+  // Send user data to see
+  try {
+    const user = await User.findById(userId);
+    // TODO
+    // check if user is null
+    res.status(200).json(user);
+    res.send('Profile Edit view');
+    // res.send('profile');
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const profile_patch = async (req, res) => {
+  const { userId } = req.body;
+  const { username, alamat } = req.body;
+  const formEdit = { username, alamat };
+  console.log(formEdit);
+  // TODO get user ID from jwt
+
+  // Send user data to see
+  try {
+    const user = await User.findByIdAndUpdate(userId, formEdit);
+    // TODO
+    // check if user is null
+    res.status(200).json(user);
+    // res.send('profile');
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const endorse_get = (req, res) => {
@@ -144,6 +203,7 @@ export default {
   endorse_get,
   endorse_patch,
   endorse_post,
-  profile_patch,
   profile_get,
+  profile_edit,
+  profile_patch,
 };
