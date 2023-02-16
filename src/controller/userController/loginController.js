@@ -14,7 +14,7 @@ const login_post = async (req, res) => {
     if (user) {
       const auth = await bcrypt.compare(password, user.password);
       if (auth) {
-        res.status(200).json({ user: user.id })
+        res.status(200).json({ user: user.id });
       } else {
         throw Error('Password salah');
       }

@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // route
 app.use(userRoutes);
+app.use('/admin', adminRoutes);
 
 app.get('/', (req, res) => {
   res.send('berhasil konek');

@@ -30,12 +30,14 @@ const adminSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ['superadmin', 'admin'],
+    require: true,
+    default: 'admin',
   },
 }, { timestamps: true });
 
 adminSchema.pre('save', async function(next) {
   const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(salt, this.password);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
