@@ -20,11 +20,16 @@ router.patch('/sponsor', adminController.sponsor_patch);
 router.get('/user', adminController.user_get);
 router.get('/user/:id', adminController.user_detail_get);
 router.delete('/user/:id', adminController.user_delete);
+router.patch('/user/:id', adminController.user_patch);
 
-router.patch('/user', () => {});
-router.delete('/user', () => {});
+router.get('/notification', adminController.adminnotifitacation_get);
+router.post('/notification', adminController.adminnotification_post);
+router.patch('/notification/:id', adminController.adminnotification_patch);
 
 // calendar of event
+// TODO
+// ini nanti aja. Datanya bisa ngambil dari invitations ditampilin di tampilin di view dengan 
+// fullcalendar
 router.get('/events', () => {});
 router.get('/events/history', () => {});
 

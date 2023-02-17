@@ -20,6 +20,18 @@ const user_detail_get = async (req, res) => {
   };
 };
 
+const user_patch = async (req, res) => {
+  const user_id = req.params.id;
+  // id nanti didapatkan dari payload
+
+  try {
+    const user = await User.findByIdAndUpdate(user_id, req.body);
+    res.status(200).json({ status: 'ok', user });
+  } catch (err) {
+    console.log(err);
+  };
+};
+
 const user_delete = async (req, res) => {
   const user_id = req.params.id;
 
@@ -35,4 +47,5 @@ export {
   user_delete,
   user_detail_get,
   user_get,
+  user_patch,
 };
