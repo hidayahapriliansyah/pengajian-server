@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import User from '../../models/User.js';
 
 const login_get = (req, res) => {
-  res.send('login');
+  res.render('user/login', { title: 'Login' });
 };
 
 const login_post = async (req, res) => {

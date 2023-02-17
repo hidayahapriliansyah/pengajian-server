@@ -1,0 +1,51 @@
+<%- include('../partials/header') %>
+
+<main class="w-full py-10 px-5 sm:flex sm:flex-col sm:items-center">
+  <h1 class="block my-5 font-bold text-center text-xl text-green-600">Login</h1>
+
+  <form class="w-full sm:w-[50%] lg:max-w-[500px]">
+    <div class="mb-6">
+      <label
+        for="email"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Username / Email</label
+      >
+      <input
+        type="email"
+        id="email"
+        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 dark:shadow-sm-light"
+        name="email"
+        autofocus required
+      />
+    </div>
+    <div class="mb-6">
+      <label
+        for="password"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Password</label
+      >
+      <input
+        type="password"
+        id="password"
+        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 dark:shadow-sm-light"
+        name="password"
+        required
+      />
+    </div>
+    <div class="w-full flex justify-center">
+      <button
+        type="submit"
+        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+        name="submit"
+        >
+        Masuk
+      </button>
+    </div>
+  </form>
+
+  <div class="w-full mt-7 text-center">
+    <p class="text-sm">Belum punya akun?</p><a href="/signup" class="text-sm text-green-600">Buat akun di sini</a>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

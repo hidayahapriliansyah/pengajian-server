@@ -34,6 +34,14 @@ const userSchema = new mongoose.Schema({
     require: [true, 'Nama lengkap wajib diisi'],
     minlength: [3, 'Nama lengkpa minimal memiliki 3 karakter']
   },
+  gender: {
+    type: String,
+    enum: ['m', 'f'],
+    require: [true, 'Gender harus diisi'],
+  },
+  birthdate: {
+    type: Date,
+  },
   no_hp: {
     type: String,
     trim: true,

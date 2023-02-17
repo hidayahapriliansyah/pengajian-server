@@ -1,7 +1,10 @@
+import dotenv from 'dotenv';
 import User from '../../models/User.js';
 
+dotenv.config();
+
 const signup_get = (req, res) => {
-  res.send('signup');
+  res.render('user/signup', { title: 'Buat Akun', endpoint: process.env.API_ENDPOINT });
 };
 
 const signup_post = async (req, res) => {
