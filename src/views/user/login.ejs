@@ -6,36 +6,49 @@
   <form class="w-full sm:w-[50%] lg:max-w-[500px]">
     <div class="mb-6">
       <label
-        for="email"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        for="username"
+        class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
         >Username / Email</label
       >
       <input
-        type="email"
-        id="email"
-        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 dark:shadow-sm-light"
-        name="email"
+        type="text"
+        id="username"
+        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 dark:shadow-sm-light"
+        name="username"
         autofocus required
       />
+      <div id="username_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
     </div>
-    <div class="mb-6">
+    <div class="relative mb-6">
       <label
         for="password"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
         >Password</label
       >
       <input
         type="password"
         id="password"
-        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 dark:shadow-sm-light"
+        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 dark:shadow-sm-light"
         name="password"
         required
       />
+      <button
+        type="button"
+        class="eye absolute top-[40px] sm:top-[45px] right-[10px] w-5 h-5 text-gray-500 cursor-pointer"
+      >
+        <div class="eye-svg hidden pointer-events-none" name="eye">
+          <%- include('../svg/eye-solid') %>
+        </div>
+        <div class="eye-slash-svg pointer-events-none">
+          <%- include('../svg/eye-slash-solid') %>
+        </div>
+      </button>
+      <div id="password_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
     </div>
     <div class="w-full flex justify-center">
       <button
         type="submit"
-        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm sm:text-base px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         name="submit"
         >
         Masuk
@@ -44,8 +57,62 @@
   </form>
 
   <div class="w-full mt-7 text-center">
-    <p class="text-sm">Belum punya akun?</p><a href="/signup" class="text-sm text-green-600">Buat akun di sini</a>
+    <p class="text-sm sm:text-base">Belum punya akun?</p><a href="/signup" class="text-sm sm:text-base text-green-600">Buat akun di sini</a>
   </div>
 </main>
+
+<script>
+  const eyes = document.querySelectorAll('.eye');
+  eyes.forEach((eye) => {
+    eye.addEventListener('click', (e) => {
+      e.target.querySelector('.eye-svg').classList.toggle('hidden');
+      e.target.querySelector('.eye-slash-svg').classList.toggle('hidden');
+
+      const input = e.target.closest('div').querySelector('input');
+      input.type === 'password'
+        ? (input.type = 'text')
+        : (input.type = 'password');
+    });
+  });
+
+  const form = document.querySelector('form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const username = document.querySelector('#username').value;
+    const password = document.querySelector('#password').value;
+    const payload = { username, password };
+
+    try {
+      const response = await fetch(`<%= endpoint %>/login`, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json'},
+      });
+
+      const data = await response.json();
+
+      if (data.status === 'fail') {
+        const usernameError = document.querySelector('#username_error');
+        const passwordError = document.querySelector('#password_error');
+        usernameError.textContent = '';
+        passwordError.textContent = '';
+        if (data.message === 'Password salah') {
+          passwordError.textContent = data.message;
+        } else {
+          usernameError.textContent = data.message;
+        }
+      }
+
+      if (data.user) {
+        location.assign('/');
+      }
+
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    };
+  });
+</script>
 
 <%- include('../partials/footer') %>

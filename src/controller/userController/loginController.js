@@ -1,12 +1,23 @@
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 import User from '../../models/User.js';
 
+
+dotenv.config();
+
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: maxAge,
+  });
+};
+
 const login_get = (req, res) => {
-  res.render('user/login', { title: 'Login' });
+  res.render('user/login', { title: 'Login', endpoint: process.env.API_ENDPOINT });
 };
 
 const login_post = async (req, res) => {
-  // console.log(req.body);
   const { username, password } = req.body;
 
   try {
@@ -14,7 +25,9 @@ const login_post = async (req, res) => {
     if (user) {
       const auth = await bcrypt.compare(password, user.password);
       if (auth) {
-        res.status(200).json({ user: user.id });
+        const token = createToken(user._id);
+        res.cookie(process.env.COOKIE_NAME, token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.status(200).json({ user: user._id });
       } else {
         throw Error('Password salah');
       }

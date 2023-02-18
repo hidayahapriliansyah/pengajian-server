@@ -1,7 +1,8 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 import express from 'express';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+import { fileURLToPath } from 'url';
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
@@ -19,6 +20,7 @@ mongoose.connect('mongodb://localhost:27017/undangan_pengajian')
 // middleware
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
+app.use(cookieParser());
 
 // view engine
 app.set('view engine', 'ejs');
