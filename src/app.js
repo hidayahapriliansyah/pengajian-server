@@ -3,8 +3,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import { fileURLToPath } from 'url';
+
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import * as authMiddleware from './middleware/index.js';
 
 const app = express();
 
@@ -26,9 +28,14 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', `${__dirname}/views`);
 
+// route middleware
+app.get('*', authMiddleware.checkUser);
+console.log(authMiddleware.checkUser);
+
 // route
 app.use(userRoutes);
 app.use('/admin', adminRoutes);
+
 
 app.get('/', (req, res) => {
   res.render('home', { title: 'Home' });
