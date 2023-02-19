@@ -30,7 +30,6 @@ app.set('views', `${__dirname}/views`);
 
 // route middleware
 app.get('*', authMiddleware.checkUser);
-console.log(authMiddleware.checkUser);
 
 // route
 app.use(userRoutes);
