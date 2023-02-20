@@ -9,5 +9,5 @@
 }
 
 .btn-disabled {
-  @apply bg-gray-600 hover:bg-gray-600 focus:bg-gray-600 pointer-events-none;
+  @apply bg-gray-600 focus:bg-gray-600 cursor-not-allowed;
 }

@@ -1156,34 +1156,6 @@ input[type="range"]::-ms-fill-lower{
   margin-top: 60px;
 }
 
-.ml-10{
-  margin-left: 2.5rem;
-}
-
-.ml-16{
-  margin-left: 4rem;
-}
-
-.ml-14{
-  margin-left: 3.5rem;
-}
-
-.ml-12{
-  margin-left: 3rem;
-}
-
-.mt-\[\]{
-  margin-top: ;
-}
-
-.mt-\[22px\]{
-  margin-top: 22px;
-}
-
-.mt-\[11px\]{
-  margin-top: 11px;
-}
-
 .block{
   display: block;
 }
@@ -1252,16 +1224,12 @@ input[type="range"]::-ms-fill-lower{
   height: 35px;
 }
 
-.h-\[50px\]{
-  height: 50px;
+.h-\[44px\]{
+  height: 44px;
 }
 
 .h-full{
   height: 100%;
-}
-
-.h-\[44px\]{
-  height: 44px;
 }
 
 .h-min{
@@ -1313,8 +1281,8 @@ input[type="range"]::-ms-fill-lower{
   width: 35px;
 }
 
-.w-\[50px\]{
-  width: 50px;
+.w-\[44px\]{
+  width: 44px;
 }
 
 .w-full{
@@ -1324,10 +1292,6 @@ input[type="range"]::-ms-fill-lower{
 .w-max{
   width: -moz-max-content;
   width: max-content;
-}
-
-.w-\[44px\]{
-  width: 44px;
 }
 
 .w-min{
@@ -1502,6 +1466,10 @@ input[type="range"]::-ms-fill-lower{
 
 .gap-3{
   gap: 0.75rem;
+}
+
+.gap-6{
+  gap: 1.5rem;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]){
@@ -1683,6 +1651,11 @@ input[type="range"]::-ms-fill-lower{
   background-color: rgb(188 240 218 / var(--tw-bg-opacity));
 }
 
+.bg-green-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 250 247 / var(--tw-bg-opacity));
+}
+
 .bg-green-500{
   --tw-bg-opacity: 1;
   background-color: rgb(14 159 110 / var(--tw-bg-opacity));
@@ -1718,26 +1691,6 @@ input[type="range"]::-ms-fill-lower{
 .bg-yellow-100{
   --tw-bg-opacity: 1;
   background-color: rgb(253 246 178 / var(--tw-bg-opacity));
-}
-
-.bg-red-600{
-  --tw-bg-opacity: 1;
-  background-color: rgb(224 36 36 / var(--tw-bg-opacity));
-}
-
-.bg-green-600{
-  --tw-bg-opacity: 1;
-  background-color: rgb(5 122 85 / var(--tw-bg-opacity));
-}
-
-.bg-green-400{
-  --tw-bg-opacity: 1;
-  background-color: rgb(49 196 141 / var(--tw-bg-opacity));
-}
-
-.bg-green-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 250 247 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50{
@@ -1862,6 +1815,11 @@ input[type="range"]::-ms-fill-lower{
   line-height: 2rem;
 }
 
+.text-3xl{
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .text-base{
   font-size: 1rem;
   line-height: 1.5rem;
@@ -1885,21 +1843,6 @@ input[type="range"]::-ms-fill-lower{
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-5xl{
-  font-size: 3rem;
-  line-height: 1;
-}
-
-.text-4xl{
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
-.text-3xl{
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 
 .font-bold{
@@ -2076,12 +2019,7 @@ input[type="range"]::-ms-fill-lower{
 }
 
 .btn-disabled{
-  pointer-events: none;
-  --tw-bg-opacity: 1;
-  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
-}
-
-.btn-disabled:hover{
+  cursor: not-allowed;
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
@@ -2131,6 +2069,11 @@ input[type="range"]::-ms-fill-lower{
   background-color: rgb(14 159 110 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-green-600:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 122 85 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-green-800:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(3 84 63 / var(--tw-bg-opacity));
@@ -2149,11 +2092,6 @@ input[type="range"]::-ms-fill-lower{
 .hover\:bg-yellow-500:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(194 120 3 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-green-600:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(5 122 85 / var(--tw-bg-opacity));
 }
 
 .hover\:text-black:hover{
@@ -2575,6 +2513,11 @@ input[type="range"]::-ms-fill-lower{
     order: 2;
   }
 
+  .md\:mx-auto{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .md\:mr-0{
     margin-right: 0px;
   }
@@ -2599,8 +2542,20 @@ input[type="range"]::-ms-fill-lower{
     width: auto;
   }
 
+  .md\:min-w-\[700px\]{
+    min-width: 700px;
+  }
+
+  .md\:max-w-\[338px\]{
+    max-width: 338px;
+  }
+
   .md\:max-w-\[500px\]{
     max-width: 500px;
+  }
+
+  .md\:max-w-\[800px\]{
+    max-width: 800px;
   }
 
   .md\:grid-cols-2{
@@ -2640,6 +2595,11 @@ input[type="range"]::-ms-fill-lower{
 
   .md\:p-0{
     padding: 0px;
+  }
+
+  .md\:text-3xl{
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .md\:text-sm{

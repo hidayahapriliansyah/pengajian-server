@@ -1,4 +1,11 @@
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+import User from '../../models/User.js';
 import Invitation from '../../models/Invitation.js';
+import * as auth from '../../auth/index.js';
+
+dotenv.config();
 
 const invite_get = async (req, res) => {
   res.render('user/invite', { title: 'Undangan' });
@@ -11,17 +18,61 @@ const invite_get = async (req, res) => {
 };
 
 const invite_post = async (req, res) => {
-  try {
-    // const invitation = Invitation.create();
-    const invitations = await Invitation.create(req.body);
-    res.status(201).json(invitations);
-  } catch (err) {
-    console.log(err);
+  const {
+    tema,
+    lokasi,
+    waktu,
+    audience,
+    cp: contact_person,
+  } = req.body;
+
+  // payload validation
+  // berarti ini mah pake switch case
+  let errors = {};
+  if (!tema) {
+    errors.tema = 'Tema harus diisi';
+    return res.status(400).json({status: 'fail', errors });
+  } else if (!lokasi) {
+    errors.tema = 'Tema harus diisi';
   }
+  // cek apakah tema undefined
+  // aneh ari dina skema geus require, tapi lamun tina payloadna
+  //  didedetkeun tanpa property require eta malah bisa masuk. uhuk uhuk
+
+  const payload = req.body;
+
+  try {
+    const invitation = await Invitation.create(payload);
+    res.status(201).json({ status: 'ok', invitation: invitation._id });
+  } catch (err) {
+    res.status(400).json({ status: 'fail', message: err.message });
+  }
+
+  // try {
+  //   const user = await auth.userAuth(req, res);
+  //   if (user) {
+  //     const user_id = user.id;
+  //     const payload = {
+  //       user_id,
+  //       tema,
+  //       lokasi,
+  //       waktu,
+  //       audience,
+  //       contact_person,
+  //     };
+  //     const invitation = await Invitation.create(payload);
+  //     res.status(201).json({ status: 'ok', invitation: invitation._id });
+  //   } else {
+  //     throw Error('User tidak valid');
+  //   }
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(400).json({ status: 'fail', message: err.message });
+  // }
 };
 
 const invite_create_get = (req, res) => {
-  res.send('Create Invitation Form');
+  res.render('user/invite-create', { title: 'Ajukan Undangan', endpoint: process.env.API_ENDPOINT });
 };
 
 const invite_detail_get = async (req, res) => {

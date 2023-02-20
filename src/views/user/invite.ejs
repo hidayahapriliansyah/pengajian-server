@@ -1,4 +1,5 @@
-<%- include('../partials/header') %> <%- include('../partials/navbar') %>
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
 
 <main class="w-full max-w-[1444px] mt-[60px] mx-auto">
   <section class="w-full p-6 flex flex-col">
@@ -7,9 +8,9 @@
     </h1>
 
     <div class="w-full flex flex-row gap-3 justify-center items-center mx-auto mb-4">
-      <a href="/create" id="dropdownDelayButton" data-dropdown-toggle="dropdownDelay" data-dropdown-delay="500" data-dropdown-trigger="hover" class="w-[44px] h-[44px] text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">
+      <a href="/invite/create" id="dropdownDelayButton" data-dropdown-toggle="dropdownDelay" data-dropdown-delay="500" data-dropdown-trigger="hover" class="w-[44px] h-[44px] text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">
         <%- include('../svg/plus') %>
-      </button>
+      </a>
       <!-- Dropdown menu -->
       <div id="dropdownDelay" class="z-10 hidden p-4 bg-green-50 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
         <p class="font-bold text-green-500">Ajukan Undangan</p>
