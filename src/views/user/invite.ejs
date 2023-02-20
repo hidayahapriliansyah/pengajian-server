@@ -1,0 +1,199 @@
+<%- include('../partials/header') %> <%- include('../partials/navbar') %>
+
+<main class="w-full max-w-[1444px] mt-[60px] mx-auto">
+  <section class="w-full p-6 flex flex-col">
+    <h1 class="text-center font-bold text-3xl my-5 text-green-700">
+      Undangan Saya
+    </h1>
+
+    <div class="w-full flex flex-row gap-3 justify-center items-center mx-auto mb-4">
+      <a href="/create" id="dropdownDelayButton" data-dropdown-toggle="dropdownDelay" data-dropdown-delay="500" data-dropdown-trigger="hover" class="w-[44px] h-[44px] text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">
+        <%- include('../svg/plus') %>
+      </button>
+      <!-- Dropdown menu -->
+      <div id="dropdownDelay" class="z-10 hidden p-4 bg-green-50 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <p class="font-bold text-green-500">Ajukan Undangan</p>
+      </div>
+      <button id="all" class="w-min h-min py-1 px-3 bg-green-500 text-sm sm:text-base text-white rounded-full">Semua</button>
+
+      <div class="w-max px-1 hidden md:flex md:flex-row md:gap-3">
+        <button class="w-min h-min py-1 px-3 bg-gray-200 text-sm sm:text-base rounded-full">Tinjauan</button>
+        <button class="w-min h-min py-1 px-3 bg-gray-200 text-sm sm:text-base rounded-full">Negosiasi</button>
+        <button class="w-min h-min py-1 px-3 bg-gray-200 text-sm sm:text-base rounded-full">Diterima</button>
+        <button class="w-min h-min py-1 px-3 bg-gray-200 text-sm sm:text-base rounded-full">Ditolak</button>
+      </div>
+
+      <div class="block md:hidden">
+        <button id="dropdown-btn" data-dropdown-toggle="dropdown" class="text-white bg-gray-500 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm sm:text-base px-3 py-1 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button"><p>Filter</p>
+          <%- include('../svg/dropdown-downarrow') %>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm sm:text-base text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <a href="#" id="tinjauan-filter" class="block px-4 py-2 hover:bg-gray-500 dark:hover:bg-gray-600 dark:hover:text-white">Tinjauan</a>
+              </li>
+              <li>
+                <a href="#" id="negosiasi-filter" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Negosiasi</a>
+              </li>
+              <li>
+                <a href="#" id="diterima-filter" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Diterima</a>
+              </li>
+              <li>
+                <a href="#" id="ditolak-filter" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ditolak</a>
+              </li>
+            </ul>
+        </div>
+      </div>
+
+    </div>
+  
+    <div class="w-full relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm sm:text-base text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Tema</th>
+            <th scope="col" class="px-6 py-3">Waktu</th>
+            <th scope="col" class="px-6 py-3">Lokasi</th>
+            <th scope="col" class="px-6 py-3">Status</th>
+            <th scope="col" class="px-6 py-3">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              Apple MacBook Pro 17"
+            </th>
+            <td class="px-6 py-4 whitespace-nowrap">20 Maret 2023 15:00</td>
+            <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">dsdfsdfsdf sdfsdf sdfsdfsdf sdf sdfafasf afartgaifhae asdfhasdhfaf asfhgajf asdhfgaasehfgua adhfgjh ayfguyaeguya aehfgh</td>
+            <td class="px-6 py-4">Tinjauan</td>
+            <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
+              <a href="#" title="Detail" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/eye-solid.ejs') %>
+              </a>
+              <a href="#" title="Edit" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/pen.ejs') %>
+              </a>
+              <a href="#" title="Hapus" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/trash.ejs') %>
+              </a>
+            </td>
+          </tr>
+          <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              Microsoft Surface Pro
+            </th>
+            <td class="px-6 py-4">20 Maret 2023 15:00</td>
+            <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">dsdfsdfsdf sdfsdf sdfsdfsdf sdf sdfafasf afartgaifhae asdfhasdhfaf asfhgajf asdhfgaasehfgua adhfgjh ayfguyaeguya aehfgh</td>
+            <td class="px-6 py-4">Tinjauan</td>
+            <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
+              <a href="#" title="Detail" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/eye-solid.ejs') %>
+              </a>
+              <a href="#" title="Edit" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/pen.ejs') %>
+              </a>
+              <a href="#" title="Hapus" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/trash.ejs') %>
+              </a>
+            </td>
+          </tr>
+          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              Magic Mouse 2
+            </th>
+            <td class="px-6 py-4">20 Maret 2023 15:00</td>
+            <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">dsdfsdfsdf sdfsdf sdfsdfsdf sdf sdfafasf afartgaifhae asdfhasdhfaf asfhgajf asdhfgaasehfgua adhfgjh ayfguyaeguya aehfgh</td>
+            <td class="px-6 py-4">Tinjauan</td>
+            <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
+              <a href="#" title="Detail" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/eye-solid.ejs') %>
+              </a>
+              <a href="#" title="Edit" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/pen.ejs') %>
+              </a>
+              <a href="#" title="Hapus" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/trash.ejs') %>
+              </a>
+            </td>
+          </tr>
+          <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              Google Pixel Phone
+            </th>
+            <td class="px-6 py-4">20 Maret 2023 15:00</td>
+            <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">dsdfsdfsdf sdfsdf sdfsdfsdf sdf sdfafasf afartgaifhae asdfhasdhfaf asfhgajf asdhfgaasehfgua adhfgjh ayfguyaeguya aehfgh</td>
+            <td class="px-6 py-4">Tinjauan</td>
+            <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
+              <a href="#" title="Detail" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/eye-solid.ejs') %>
+              </a>
+              <a href="#" title="Edit" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/pen.ejs') %>
+              </a>
+              <a href="#" title="Hapus" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/trash.ejs') %>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              Apple Watch 5
+            </th>
+            <td class="px-6 py-4">20 Maret 2023 15:00</td>
+            <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">dsdfsdfsdf sdfsdf sdfsdfsdf sdf sdfafasf afartgaifhae asdfhasdhfaf asfhgajf asdhfgaasehfgua adhfgjh ayfguyaeguya aehfgh</td>
+            <td class="px-6 py-4">Tinjauan</td>
+            <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
+              <a href="#" title="Detail" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/eye-solid.ejs') %>
+              </a>
+              <a href="#" title="Edit" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/pen.ejs') %>
+              </a>
+              <a href="#" title="Hapus" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                <%- include('../svg/trash.ejs') %>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+</main>
+
+<script>
+  const filterMenus = document.querySelectorAll('[id$="-filter"]');
+  const dropdownFilterBtn = document.querySelector('#dropdown-btn');
+  const dropdownFilterBtnP = document.querySelector('#dropdown-btn p');
+  console.log(dropdownFilterBtn.textContent);
+  filterMenus.forEach((el) => {
+    el.addEventListener('click', () => {
+      dropdownFilterBtnP.textContent = el.textContent;
+    });
+  });
+  
+  const allFilterBtn = document.querySelector('#all');
+  all.addEventListener('click', () => {
+    dropdownFilterBtnP.textContent = 'Filter';
+  });
+</script>
+
+<%- include('../partials/footer') %>

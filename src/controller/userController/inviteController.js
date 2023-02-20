@@ -1,12 +1,13 @@
 import Invitation from '../../models/Invitation.js';
 
 const invite_get = async (req, res) => {
-  try {
-    const invitations = await Invitation.find();
-    res.status(200).json({ status: 'ok', invitations });
-  } catch (err) {
-    console.log(err);
-  }
+  res.render('user/invite', { title: 'Undangan' });
+  // try {
+  //   const invitations = await Invitation.find();
+  //   res.status(200).json({ status: 'ok', invitations });
+  // } catch (err) {
+  //   console.log(err);
+  // }
 };
 
 const invite_post = async (req, res) => {
