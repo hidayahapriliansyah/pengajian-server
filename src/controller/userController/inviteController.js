@@ -1,74 +1,105 @@
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 
 import User from '../../models/User.js';
 import Invitation from '../../models/Invitation.js';
 import * as auth from '../../auth/index.js';
+import { invitationError as handleErrors } from '../../handlers/errorHandler.js';
+import { days, months } from '../../lib/time/index.js';
 
 dotenv.config();
 
 const invite_get = async (req, res) => {
-  res.render('user/invite', { title: 'Undangan' });
-  // try {
-  //   const invitations = await Invitation.find();
-  //   res.status(200).json({ status: 'ok', invitations });
-  // } catch (err) {
-  //   console.log(err);
-  // }
+  
+  try {
+    const user = await auth.userAuth(req, res);
+    if (user) {
+      const invitations = await Invitation.find({ user_id: user._id });
+      const invitationsColl = invitations.map((inv) => {
+        const waktu = new Date(inv.waktu);
+        console.log(waktu);
+        const day = days[waktu.getDay()];
+        const date = waktu.getDate();
+        const month = months[waktu.getUTCMonth()];
+        const year = waktu.getFullYear();
+        const hour = waktu.getHours();
+        const minute = waktu.getMinutes();
+
+        console.log(`${day} ${date} ${month} ${year}, ${hour}, ${minute}`);
+        return {
+          id: inv._id,
+          tema: inv.tema,
+          waktu: inv.waktu,
+          lokasi: inv.lokasi,
+          status: inv.status,
+        }
+      });
+
+      // console.log(invitationsColl);
+      res.render('user/invite', { title: 'Undangan', /* invitations: invitationsColl */ });
+    } else {
+      res.status(403).json({ status: 'fail', message: 'User is invalid' });
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const invite_post = async (req, res) => {
   const {
     tema,
     lokasi,
+    lokasi_map,
     waktu,
     audience,
     cp: contact_person,
   } = req.body;
 
   // payload validation
-  // berarti ini mah pake switch case
   let errors = {};
   if (!tema) {
     errors.tema = 'Tema harus diisi';
     return res.status(400).json({status: 'fail', errors });
   } else if (!lokasi) {
-    errors.tema = 'Tema harus diisi';
+    errors.lokasi = 'Lokasi harus diisi';
+    return res.status(400).json({status: 'fail', errors });
+  } else if (!lokasi_map) {
+    errors.lokasi_map = 'Link lokasi harus diisi';
+    return res.status(400).json({status: 'fail', errors });
+  } else if (!waktu) {
+    errors.waktu = 'Waktu harus diisi';
+    return res.status(400).json({status: 'fail', errors });
+  } else if (!audience) {
+    errors.audience = 'Audience harus diisi';
+    return res.status(400).json({status: 'fail', errors });
+  } else if (!contact_person) {
+    errors.contact_person = 'Contact person harus diisi';
+    return res.status(400).json({status: 'fail', errors });
   }
-  // cek apakah tema undefined
-  // aneh ari dina skema geus require, tapi lamun tina payloadna
-  //  didedetkeun tanpa property require eta malah bisa masuk. uhuk uhuk
-
-  const payload = req.body;
+  console.log('errors', errors);
 
   try {
-    const invitation = await Invitation.create(payload);
-    res.status(201).json({ status: 'ok', invitation: invitation._id });
+    const user = await auth.userAuth(req, res);
+    if (user) {
+      const user_id = user._id;
+      const payload = {
+        user_id,
+        tema,
+        lokasi,
+        lokasi_map,
+        waktu,
+        audience,
+        contact_person,
+      };
+      const invitation = await Invitation.create(payload);
+      res.status(201).json({ status: 'ok', invitation: invitation._id });
+    } else {
+      res.status(400).json({ status: 'fail', message: 'User is invalid' });
+    }
   } catch (err) {
-    res.status(400).json({ status: 'fail', message: err.message });
+    console.log('err', err);
+    const errors = handleErrors(err);
+    res.status(400).json({ status: 'fail', errors });
   }
-
-  // try {
-  //   const user = await auth.userAuth(req, res);
-  //   if (user) {
-  //     const user_id = user.id;
-  //     const payload = {
-  //       user_id,
-  //       tema,
-  //       lokasi,
-  //       waktu,
-  //       audience,
-  //       contact_person,
-  //     };
-  //     const invitation = await Invitation.create(payload);
-  //     res.status(201).json({ status: 'ok', invitation: invitation._id });
-  //   } else {
-  //     throw Error('User tidak valid');
-  //   }
-  // } catch (err) {
-  //   console.log(err);
-  //   res.status(400).json({ status: 'fail', message: err.message });
-  // }
 };
 
 const invite_create_get = (req, res) => {
