@@ -8,34 +8,35 @@ import { days, months } from '../../lib/time/index.js';
 
 dotenv.config();
 
+const makeInvitationCollection = (invitations) => {
+  return invitations.map((inv) => {
+    const waktu = new Date(inv.waktu);
+    console.log(waktu);
+    const day = days[waktu.getDay()];
+    const date = waktu.getDate();
+    const month = months[waktu.getUTCMonth()];
+    const year = waktu.getFullYear();
+    const hour = waktu.getHours();
+    const minute = waktu.getMinutes();
+
+    const waktuFormatted = `${day}, ${date} ${month} ${year}, ${hour}:${minute}`;
+    return {
+      id: inv._id,
+      tema: inv.tema,
+      waktu: waktuFormatted,
+      lokasi: inv.lokasi,
+      status: inv.status,
+    }
+  });
+};
+
 const invite_get = async (req, res) => {
-  
   try {
     const user = await auth.userAuth(req, res);
     if (user) {
       const invitations = await Invitation.find({ user_id: user._id });
-      const invitationsColl = invitations.map((inv) => {
-        const waktu = new Date(inv.waktu);
-        console.log(waktu);
-        const day = days[waktu.getDay()];
-        const date = waktu.getDate();
-        const month = months[waktu.getUTCMonth()];
-        const year = waktu.getFullYear();
-        const hour = waktu.getHours();
-        const minute = waktu.getMinutes();
-
-        console.log(`${day} ${date} ${month} ${year}, ${hour}, ${minute}`);
-        return {
-          id: inv._id,
-          tema: inv.tema,
-          waktu: inv.waktu,
-          lokasi: inv.lokasi,
-          status: inv.status,
-        }
-      });
-
-      // console.log(invitationsColl);
-      res.render('user/invite', { title: 'Undangan', /* invitations: invitationsColl */ });
+      const invitationsColl = makeInvitationCollection(invitations);
+      res.render('user/invite', { title: 'Undangan', invitations: invitationsColl });
     } else {
       res.status(403).json({ status: 'fail', message: 'User is invalid' });
     }
@@ -75,7 +76,6 @@ const invite_post = async (req, res) => {
     errors.contact_person = 'Contact person harus diisi';
     return res.status(400).json({status: 'fail', errors });
   }
-  console.log('errors', errors);
 
   try {
     const user = await auth.userAuth(req, res);
@@ -96,7 +96,6 @@ const invite_post = async (req, res) => {
       res.status(400).json({ status: 'fail', message: 'User is invalid' });
     }
   } catch (err) {
-    console.log('err', err);
     const errors = handleErrors(err);
     res.status(400).json({ status: 'fail', errors });
   }
@@ -131,7 +130,6 @@ const invite_patch = async (req, res) => {
     const invitation = await Invitation.findByIdAndUpdate(id, req.body);
     // TODO handle if invitaion is null
     res.status(201).json({ status: 'ok', invitation });
-    console.log(invitation);
   } catch (err) {
     console.log(err);
   }
@@ -139,7 +137,6 @@ const invite_patch = async (req, res) => {
 
 const invite_delete = async (req, res) => {
   const id = req.params.id;
-  console.log(id);
   // TODO
   // untuk update tidak boleh menggunakan params dari url, harus ngambil dari payload
 

@@ -1,1 +1,1 @@
-export * from './userAuth.js';
+export { default as userAuth } from './userAuth.js';

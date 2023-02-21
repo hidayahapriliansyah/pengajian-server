@@ -78,7 +78,7 @@
             type="number"
             id="cp"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-            placeholder="0823123456789"
+            placeholder="08xxxxxxxxx"
             required
           />
           <div id="cp_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
@@ -135,8 +135,8 @@
   const tema = document.querySelector('#tema');
   const temaError = document.querySelector('#tema_error');
   tema.addEventListener('keyup', (e) => {
-    if (e.target.value.length < 3) {
-      temaError.textContent = 'Tema minimal memiliki 3 karakter';
+    if (e.target.value.length < 5) {
+      temaError.textContent = 'Tema minimal memiliki 5 karakter';
     } else {
       temaError.textContent = '';
     }
@@ -196,7 +196,7 @@
   cp.addEventListener('keyup', (e) => {
     if (e.target.value.length === 0) {
       cpError.textContent = 'Contact Person harus diisi';
-    } else if (e.target.value < 11) {
+    } else if (e.target.value.length < 11) {
       cpError.textContent = 'Contact Person minimal memiliki 11 karakter';
     } else {
       cpError.textContent = '';
@@ -237,21 +237,37 @@
     const payload = {
       tema : tema.value, 
       lokasi: lokasi.value,
+      lokasi_map: lokasiMap.value,
       waktu: waktu.value,
       audience: audience.value, 
       cp: cp.value,
     };
 
-    console.log(payload); 
-
     try {
-      const user = await fetch(`<%= endpoint %>/invite`, {
+      const response = await fetch(`<%= endpoint %>/invite`, {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json', },
       });
+      const data = await response.json();
+
+      if (data.invitation) {
+        location.assign('/invite');
+      }
+
+      if (data.errors) {
+        temaError.textContent = data.errors.tema || null;
+        lokasiError.textContent = data.errors.lokasi || null;
+        waktuError.textContent = data.errors.waktu || null;
+        lokasiMapError.textContent = data.errors.lokasi_map;
+      }
+
+      if (data.message === 'User is invalid') {
+        location.assign('/login');
+      }
+
     } catch (err) {
-      
+      console.log(err);
     }
   });
 

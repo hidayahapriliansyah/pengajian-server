@@ -24,6 +24,4 @@ const userAuth = async (req, res) => {
   }
 };
 
-export {
-  userAuth,
-};
+export default userAuth;
