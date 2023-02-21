@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import validator from 'validator';
 
 const invitationSchema = new mongoose.Schema({
   user_id: {
@@ -19,6 +20,11 @@ const invitationSchema = new mongoose.Schema({
     type: String,
     require: [true, 'Lokasi harus diisi'],
     minlength: [10, 'Lokasi setidaknya harus memiliki 10 karakter. Mohon isi lokasi dengan detail'],
+  },
+  lokasi_map: {
+    type: String,
+    require: [true, 'Link lokasi map harus diisi'],
+    validate: [ validator.isURL, 'Input yang dimasukkan harus berupa URL'],
   },
   waktu: {
     type: String,
