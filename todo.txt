@@ -1,2 +1,10 @@
 NGARAPIKEUN ERROR HANDLING INVITATION CORET
 
+ADUUUUH VALIDATION HTML CHAR KACAU UUUU
+
+html-entities
+BODYPARSER
+
+https://www.youtube.com/watch?v=z8m_Vy_9FIs
+
+<div style="color: red">Hello DUNIA</div>

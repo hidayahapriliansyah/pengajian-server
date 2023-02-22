@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import htmlspecialchars from 'htmlspecialchars';
 
 import User from '../../models/User.js';
 import Invitation from '../../models/Invitation.js';
@@ -130,13 +131,14 @@ const invite_post = async (req, res) => {
     const user_id = user._id;
     const payload = {
       user_id,
-      tema,
-      lokasi,
-      lokasi_map,
-      waktu,
-      audience,
-      contact_person,
+      tema: htmlspecialchars(tema),
+      lokasi: htmlspecialchars(lokasi),
+      lokasi_map: htmlspecialchars(lokasi_map),
+      waktu: htmlspecialchars(waktu),
+      audience: htmlspecialchars(audience),
+      contact_person: htmlspecialchars(contact_person),
     }
+
     const invitation = await Invitation.create(payload);
     res.status(201).json({ status: 'ok', invitation: invitation._id });
   } catch (err) {
