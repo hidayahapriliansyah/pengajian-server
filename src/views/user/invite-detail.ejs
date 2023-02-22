@@ -6,7 +6,7 @@
       class="w-full flex flex-col sm:flex-row sm:flex-wrap sm:max-w-[80%] items-start justify-center sm:items-center sm:my-5"
     >
       <h1 class="font-bold text-2xl md:text-3xl text-center text-green-700">
-        <%= invitation.tema %>
+        <%- invitation.tema %>
       </h1>
 
       <div
@@ -110,7 +110,7 @@
         class="inline-block w-[12px] h-[12px] bg-blue-400 rounded-full"
       ></span>
       <span id="status-pengajuan" class="text-blue-100">
-        <%= invitation.status.toUpperCase() %>
+        <%- invitation.status.toUpperCase() %>
       </span>
     </div>
 
@@ -127,7 +127,7 @@
           <td
             class="p-1 sm:p-3 border border-01 border-green-400 rounded-tr-lg"
           >
-            <%= invitation.tema %>
+            <%- invitation.tema %>
           </td>
         </tr>
         <tr>
@@ -137,7 +137,7 @@
             <span class="font-semibold">Waktu</span>
           </td>
           <td class="p-1 sm:p-3 border border-01 border-green-400">
-            <%= invitation.waktu %>
+            <%- invitation.waktu %>
           </td>
         </tr>
         <tr>
@@ -147,7 +147,7 @@
             <span class="font-semibold">Lokasi</span>
           </td>
           <td class="p-1 sm:p-3 border border-01 border-green-400">
-            <%= invitation.lokasi %>
+            <%- invitation.lokasi %>
           </td>
         </tr>
         <tr>
@@ -161,7 +161,7 @@
               href="<%= invitation.lokasi_map %>"
               target="_blank"
               class="inline-block w-full max-w-[180px] sm:max-w-[250px] md:max-w-[400px] whitespace-normal overflow-hidden text-ellipsis underline text-green-800"
-              ><%= invitation.lokasi_map %></a
+              ><%- invitation.lokasi_map %></a
             >
           </td>
         </tr>
@@ -172,7 +172,7 @@
             <span class="font-semibold">Audience</span>
           </td>
           <td class="p-1 sm:p-3 border border-01 border-green-400">
-            <%= invitation.audience %>
+            <%- invitation.audience %>
           </td>
         </tr>
         <tr>
@@ -184,7 +184,7 @@
           <td
             class="w-full p-1 sm:p-3 border border-01 border-green-400 rounded-br-lg whitespace-nowrap overflow-hidden text-ellipsis"
           >
-            <%= invitation.cp %>
+            <%- invitation.cp %>
           </td>
         </tr>
       </tbody>

@@ -113,11 +113,11 @@ const invite_post = async (req, res) => {
     cp: contact_person,
   } = req.body;
 
-  const payloadValidation = invatationPayloadValidation(req, res, {
+  const payloadValidation = invatationPayloadValidation({
     tema, lokasi, lokasi_map, waktu, audience, contact_person, waktu,
   });
 
-  if(payloadValidation) {
+  if (payloadValidation) {
     res.status(400).json({ status: 'fail', errors: payloadValidation });
     return;
   };
