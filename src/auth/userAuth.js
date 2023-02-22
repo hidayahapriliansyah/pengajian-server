@@ -14,13 +14,13 @@ const userAuth = async (req, res) => {
       if (user) {
         return user;
       } else {
-        throw Error('User is invalid');
+        res.redirect('/login');
       }
     } catch (err) {
-      return Error('User is invalid');
+      res.redirect('/login');
     }
   } else {
-    throw Error('User is invalid');
+    res.redirect('/login');
   }
 };
 

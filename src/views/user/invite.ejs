@@ -15,33 +15,33 @@
       <div id="dropdownDelay" class="z-10 hidden p-4 bg-green-50 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
         <p class="font-bold text-green-500">Ajukan Undangan</p>
       </div>
-      <button id="all" class="w-min h-min py-1 px-3 bg-green-500 text-sm sm:text-base text-white rounded-full">Semua</button>
+      <button id="all" class="w-min h-min py-1 px-3 bg-green-500 border border-1 border-green-500 text-sm sm:text-base text-white rounded-full">Semua</button>
 
-      <div class="w-max px-1 hidden md:flex md:flex-row md:gap-3">
-        <button class="w-min h-min py-1 px-3 bg-gray-200 text-sm sm:text-base rounded-full">Tinjauan</button>
-        <button class="w-min h-min py-1 px-3 bg-gray-200 text-sm sm:text-base rounded-full">Negosiasi</button>
-        <button class="w-min h-min py-1 px-3 bg-gray-200 text-sm sm:text-base rounded-full">Diterima</button>
-        <button class="w-min h-min py-1 px-3 bg-gray-200 text-sm sm:text-base rounded-full">Ditolak</button>
+      <div id="btn-filter-group" class="w-max px-1 hidden md:flex md:flex-row md:gap-3">
+        <button class="tinjauan-btn w-min h-min py-1 px-3 hover:bg-green-100 border border-1 border-green-500 text-sm sm:text-base text-green-800 rounded-full">Tinjauan</button>
+        <button class="negosiasi-btn w-min h-min py-1 px-3 hover:bg-green-100 border border-1 border-green-500 text-sm sm:text-base text-green-800 rounded-full">Negosiasi</button>
+        <button class="diterima-btn w-min h-min py-1 px-3 hover:bg-green-100 border border-1 border-green-500 text-sm sm:text-base text-green-800 rounded-full">Diterima</button>
+        <button class="ditolak-btn w-min h-min py-1 px-3 hover:bg-green-100 border border-1 border-green-500 text-sm sm:text-base text-green-800 rounded-full">Ditolak</button>
       </div>
 
       <div class="block md:hidden">
-        <button id="dropdown-btn" data-dropdown-toggle="dropdown" class="text-white bg-gray-500 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm sm:text-base px-3 py-1 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button"><p>Filter</p>
+        <button id="dropdown-btn" data-dropdown-toggle="dropdown" class="text-green-800 bg-white-500 border border-1 border-green-500 hover:bg-green-100 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm sm:text-base px-3 py-1 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button"><p>Filter</p>
           <%- include('../svg/dropdown-downarrow') %>
         </button>
         <!-- Dropdown menu -->
         <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul class="py-2 text-sm sm:text-base text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
-                <a href="#" id="tinjauan-filter" class="block px-4 py-2 hover:bg-gray-500 dark:hover:bg-gray-600 dark:hover:text-white">Tinjauan</a>
+                <button id="tinjauan-filter" class="tinjauan-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tinjauan</button>
               </li>
               <li>
-                <a href="#" id="negosiasi-filter" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Negosiasi</a>
+                <button id="negosiasi-filter" class="negosiasi-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Negosiasi</button>
               </li>
               <li>
-                <a href="#" id="diterima-filter" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Diterima</a>
+                <button id="diterima-filter" class="diterima-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Diterima</button>
               </li>
               <li>
-                <a href="#" id="ditolak-filter" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ditolak</a>
+                <button id="ditolak-filter" class="ditolak-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ditolak</button>
               </li>
             </ul>
         </div>
@@ -49,50 +49,8 @@
 
     </div>
   
-    <div class="w-full relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table class="w-full text-sm sm:text-base text-left text-gray-500 dark:text-gray-400">
-        <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-        >
-          <tr>
-            <th scope="col" class="px-6 py-3">Tema</th>
-            <th scope="col" class="px-6 py-3">Waktu</th>
-            <th scope="col" class="px-6 py-3">Lokasi</th>
-            <th scope="col" class="px-6 py-3">Status</th>
-            <th scope="col" class="px-6 py-3">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if (invitations) { %>
-            <% invitations.forEach((inv) => { %>
-              <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                ><%= inv.tema %></th>
-                <td class="px-6 py-4 whitespace-nowrap"><%= inv.waktu %></td>
-                <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis"><%= inv.lokasi %></td>
-                <td class="px-6 py-4"><%= inv.status %></td>
-                <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
-                  <a href="#" title="Detail" data-doc="<%= inv.id %>" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
-                    <%- include('../svg/eye-solid.ejs') %>
-                  </a>
-                  <a href="#" title="Edit" data-doc="<%= inv.id %>" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
-                    <%- include('../svg/pen.ejs') %>
-                  </a>
-                  <a href="#" title="Hapus" data-doc="<%= inv.id %>" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
-                    <%- include('../svg/trash.ejs') %>
-                  </a>
-                </td>
-              </tr>
-            <% }); %>
-          <% } else { %>
-            <tr colspan="5" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-              <p>Tidak ada invitations</p>
-            </tr>
-          <% }  %>
-        </tbody>
-      </table>
+    <div id="table-position" class="relative w-full lg:max-w-[1200px] md:max-w-[800px] mx-auto overflow-x-auto shadow-md sm:rounded-lg">
+
     </div>
 
   </section>
@@ -102,18 +60,125 @@
   const filterMenus = document.querySelectorAll('[id$="-filter"]');
   const dropdownFilterBtn = document.querySelector('#dropdown-btn');
   const dropdownFilterBtnP = document.querySelector('#dropdown-btn p');
-  console.log(dropdownFilterBtn.textContent);
+  const allFilterBtn = document.querySelector('#all');
+
   filterMenus.forEach((el) => {
     el.addEventListener('click', () => {
       dropdownFilterBtnP.textContent = el.textContent;
+      dropdownFilterBtn.classList.add('bg-green-500', 'hover:bg-green-800', 'text-white');
+      allFilterBtn.classList.remove('bg-green-500', 'text-white');
     });
   });
   
-  const allFilterBtn = document.querySelector('#all');
-  all.addEventListener('click', () => {
+  allFilterBtn.addEventListener('click', () => {
+    dropdownFilterBtn.classList.remove('bg-green-500', 'hover:bg-green-800', 'text-white');
     dropdownFilterBtnP.textContent = 'Filter';
+    allFilterBtn.classList.add('bg-green-500', 'text-white');
+    btnFilterGroup.forEach((btn) => {
+      btn.classList.remove('bg-green-500', 'hover:bg-green-800', 'text-white');
+    });
+  });
+  
+  const btnFilterGroup = document.querySelectorAll('#btn-filter-group button');
+  btnFilterGroup.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      btnFilterGroup.forEach((editBtn) => {
+        editBtn.classList.remove('bg-green-500', 'hover:bg-green-800', 'text-white');
+        allFilterBtn.classList.remove('bg-green-500', 'text-white');
+      });
+      e.target.classList.add('bg-green-500', 'hover:bg-green-800', 'text-white');
+    });
   });
 
+  console.log(btnFilterGroup);
+
+  const tablePosition = document.querySelector('#table-position');
+  <% if (invitations) { %>
+    const data = <%- JSON.stringify(invitations) %>;
+  
+    const renderTable = (data) => {
+      return (`
+        <table class="w-full text-sm sm:text-base text-left text-gray-500 dark:text-gray-400">
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">Tema</th>
+              <th scope="col" class="px-6 py-3">Waktu</th>
+              <th scope="col" class="px-6 py-3">Lokasi</th>
+              <th scope="col" class="px-6 py-3">Status</th>
+              <th scope="col" class="px-6 py-3">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map((d) => (
+              `<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >${d.tema}</th>
+                <td class="px-6 py-4 whitespace-nowrap">${d.waktu}</td>
+                <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">${d.lokasi}</td>
+                <td class="px-6 py-4">${d.status.toUpperCase()}</td>
+                <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
+                  <a href="/invite/${d.id}" title="Detail" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                    <%- include('../svg/eye-solid.ejs') %>
+                  </a>
+                  <a href="#" title="Edit" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                    <%- include('../svg/pen.ejs') %>
+                  </a>
+                  <a href="#" title="Hapus" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                    <%- include('../svg/trash.ejs') %>
+                  </a>
+                </td>
+              </tr>`
+            )).join('')}
+          </tbody>
+        </table>
+      `);
+    };
+  
+    if (data) {
+      tablePosition.innerHTML = renderTable(data);
+      
+      allFilterBtn.addEventListener('click', () => {
+        tablePosition.innerHTML = renderTable(data);
+      });
+  
+      const renderTableByBtnFilter = (buttons, filter) => {
+        buttons.forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            const filteredData = data.filter((d) => d.status === filter);
+            filteredData.length !== 0
+            ? tablePosition.innerHTML = renderTable(filteredData)
+            : tablePosition.innerHTML = `
+              <p class="text-center" style="padding: 20px;">Tidak ada undangan dengan status ${filter}</p>
+            `;
+          });
+        });
+      };
+  
+      const tinjauanBtn = document.querySelectorAll('.tinjauan-btn');
+      renderTableByBtnFilter(tinjauanBtn, 'tinjauan');
+  
+      const negosiasiBtn = document.querySelectorAll('.negosiasi-btn');
+      renderTableByBtnFilter(negosiasiBtn, 'negosiasi');
+  
+      const diterimaBtn = document.querySelectorAll('.diterima-btn');
+      renderTableByBtnFilter(diterimaBtn, 'diterima');
+  
+      const ditolakBtn = document.querySelectorAll('.ditolak-btn');
+      renderTableByBtnFilter(ditolakBtn, 'ditolak');
+    } else {
+      tablePosition.innerHTML = `
+        <p class="text-center" style="padding: 20px;">Anda belum membuat undangan. Klik + untuk membuat undangan.</p>
+      `;
+    }
+  <% } else { %>
+    tablePosition.innerHTML = `
+      <p class="text-center" style="padding: 20px;">Anda belum membuat undangan. Klik + untuk membuat undangan.</p>
+    `;
+  <% } %>
 </script>
 
 <%- include('../partials/footer') %>

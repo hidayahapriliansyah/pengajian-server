@@ -8,10 +8,9 @@ import { days, months } from '../../lib/time/index.js';
 
 dotenv.config();
 
-const makeInvitationCollection = (invitations) => {
+const makeInvitationCollection = (invitations, detail) => {
   return invitations.map((inv) => {
     const waktu = new Date(inv.waktu);
-    console.log(waktu);
     const day = days[waktu.getDay()];
     const date = waktu.getDate();
     const month = months[waktu.getUTCMonth()];
@@ -20,14 +19,50 @@ const makeInvitationCollection = (invitations) => {
     const minute = waktu.getMinutes();
 
     const waktuFormatted = `${day}, ${date} ${month} ${year}, ${hour}:${minute}`;
-    return {
-      id: inv._id,
-      tema: inv.tema,
-      waktu: waktuFormatted,
-      lokasi: inv.lokasi,
-      status: inv.status,
+    if(!detail || detail !== 'detail') {
+      return {
+        id: inv._id,
+        tema: inv.tema,
+        waktu: waktuFormatted,
+        lokasi: inv.lokasi,
+        status: inv.status,
+      }
+    } else {
+      return {
+        id: inv._id,
+        tema: inv.tema,
+        waktu: waktuFormatted,
+        lokasi: inv.lokasi,
+        lokasi_map: inv.lokasi_map,
+        audience: inv.audience,
+        cp: inv.contact_person,
+        status: inv.status,
+      }
     }
   });
+};
+
+const makeInvitationDocument = (invitation) => {
+  const inv = invitation;
+  const waktu = new Date(inv.waktu);
+  const day = days[waktu.getDay()];
+  const date = waktu.getDate();
+  const month = months[waktu.getUTCMonth()];
+  const year = waktu.getFullYear();
+  const hour = waktu.getHours();
+  const minute = waktu.getMinutes();
+
+  const waktuFormatted = `${day}, ${date} ${month} ${year}, ${hour}:${minute}`;
+  return {
+    id: inv._id,
+    tema: inv.tema,
+    waktu: waktuFormatted,
+    lokasi: inv.lokasi,
+    lokasi_map: inv.lokasi_map,
+    audience: inv.audience,
+    cp: inv.contact_person,
+    status: inv.status,
+  }
 };
 
 const invite_get = async (req, res) => {
@@ -109,16 +144,34 @@ const invite_detail_get = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const invitation = await Invitation.findById(id);
-    // TODO handle if invitaion is null
-    res.status(200).json({ status: 'ok', invitation });
+    const user = await auth.userAuth(req, res);
+    if (!(user instanceof Error)) {
+      const invitation = await Invitation.findOne({ _id: id, user_id: user._id });
+      if (invitation) {
+        const invitationDoc = makeInvitationDocument(invitation);
+        return res.render('user/invite-detail', { title: 'Undangan', invitation: invitationDoc });
+      } else {
+        return res.render('user/404', { title: '404' });
+      }
+    } else {
+      throw user;
+    }
   } catch (err) {
-    console.log(err);
+    if (err.message === 'User is invalid') {
+      res.redirect('/login');
+    }
+    
+    if(err.kind = 'ObjectId') {
+      // invitation id error
+      return res.render('user/404', { title: '404' });
+    }
   }
 };
 
 const invite_edit_get = (req, res) => {
-  res.send('View Edit Invitation');
+  // res.send('View Edit Invitation');
+
+
 };
 
 const invite_patch = async (req, res) => {
