@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import User from '../../models/User.js';
 import Invitation from '../../models/Invitation.js';
 import * as auth from '../../auth/index.js';
-import { invitationError as handleErrors } from '../../handlers/errorHandler.js';
+import { invitationError as handleErrors, invatationPayloadValidation } from '../../handlers/errorHandler.js';
 import { days, months } from '../../lib/time/index.js';
 
 dotenv.config();
@@ -18,7 +18,7 @@ const makeInvitationCollection = (invitations, detail) => {
     const hour = waktu.getHours();
     const minute = waktu.getMinutes();
 
-    const waktuFormatted = `${day}, ${date} ${month} ${year}, ${hour}:${minute}`;
+    const waktuFormatted = `${day}, ${date} ${month} ${year}. ${hour}:${minute}`;
     if(!detail || detail !== 'detail') {
       return {
         id: inv._id,
@@ -42,7 +42,7 @@ const makeInvitationCollection = (invitations, detail) => {
   });
 };
 
-const makeInvitationDocument = (invitation) => {
+const makeInvitationDocument = (invitation, timeraw) => {
   const inv = invitation;
   const waktu = new Date(inv.waktu);
   const day = days[waktu.getDay()];
@@ -52,7 +52,21 @@ const makeInvitationDocument = (invitation) => {
   const hour = waktu.getHours();
   const minute = waktu.getMinutes();
 
-  const waktuFormatted = `${day}, ${date} ${month} ${year}, ${hour}:${minute}`;
+  const waktuFormatted = `${day}, ${date} ${month} ${year}. ${hour}:${minute}`;
+
+  if (timeraw === 'timeraw') {
+    return {
+      id: inv._id,
+      tema: inv.tema,
+      waktu: inv.waktu,
+      lokasi: inv.lokasi,
+      lokasi_map: inv.lokasi_map,
+      audience: inv.audience,
+      cp: inv.contact_person,
+      status: inv.status,
+    }
+  }
+
   return {
     id: inv._id,
     tema: inv.tema,
@@ -90,27 +104,14 @@ const invite_post = async (req, res) => {
     cp: contact_person,
   } = req.body;
 
-  // payload validation
-  let errors = {};
-  if (!tema) {
-    errors.tema = 'Tema harus diisi';
-    return res.status(400).json({status: 'fail', errors });
-  } else if (!lokasi) {
-    errors.lokasi = 'Lokasi harus diisi';
-    return res.status(400).json({status: 'fail', errors });
-  } else if (!lokasi_map) {
-    errors.lokasi_map = 'Link lokasi harus diisi';
-    return res.status(400).json({status: 'fail', errors });
-  } else if (!waktu) {
-    errors.waktu = 'Waktu harus diisi';
-    return res.status(400).json({status: 'fail', errors });
-  } else if (!audience) {
-    errors.audience = 'Audience harus diisi';
-    return res.status(400).json({status: 'fail', errors });
-  } else if (!contact_person) {
-    errors.contact_person = 'Contact person harus diisi';
-    return res.status(400).json({status: 'fail', errors });
-  }
+  const payloadValidation = invatationPayloadValidation(req, res, {
+    tema, lokasi, lokasi_map, waktu, audience, contact_person, waktu,
+  });
+
+  if(payloadValidation) {
+    res.status(400).json({ status: 'fail', errors: payloadValidation });
+    return;
+  };
 
   try {
     const user = await auth.userAuth(req, res);
@@ -149,7 +150,7 @@ const invite_detail_get = async (req, res) => {
       const invitation = await Invitation.findOne({ _id: id, user_id: user._id });
       if (invitation) {
         const invitationDoc = makeInvitationDocument(invitation);
-        return res.render('user/invite-detail', { title: 'Undangan', invitation: invitationDoc });
+        return res.render('user/invite-detail', { title: 'Undangan', invitation: invitationDoc, endpoint: process.env.API_ENDPOINT });
       } else {
         return res.render('user/404', { title: '404' });
       }
@@ -168,37 +169,109 @@ const invite_detail_get = async (req, res) => {
   }
 };
 
-const invite_edit_get = (req, res) => {
-  // res.send('View Edit Invitation');
-
-
-};
-
-const invite_patch = async (req, res) => {
+const invite_edit_get = async (req, res) => {
   const id = req.params.id;
-  // TODO
-  // untuk update tidak boleh menggunakan params dari url, harus ngambil dari payload
 
   try {
-    const invitation = await Invitation.findByIdAndUpdate(id, req.body);
-    // TODO handle if invitaion is null
-    res.status(201).json({ status: 'ok', invitation });
+    const user = await auth.userAuth(req, res);
+    if (user instanceof Error) {
+      throw user;
+    }
+    const invitation = await Invitation.findOne({ _id: id, user_id: user._id });
+    if (invitation) {
+      const invitationDoc = makeInvitationDocument(invitation, 'timeraw');
+      res.render('user/invite-edit', { title: 'Edit Undangan', invitation: invitationDoc, endpoint: process.env.API_ENDPOINT });
+    } else {
+      return res.render('user/404', { title: '404' });
+    }
   } catch (err) {
-    console.log(err);
+    if (err.message === 'User is invalid') {
+      res.redirect('/login');
+    }
+
+    if(err.kind = 'ObjectId') {
+      // invitation id error
+      return res.render('user/404', { title: '404' });
+    }
   }
 };
 
-const invite_delete = async (req, res) => {
-  const id = req.params.id;
-  // TODO
-  // untuk update tidak boleh menggunakan params dari url, harus ngambil dari payload
+const invite_patch = async (req, res) => {
+  const {
+    id,
+    tema,
+    lokasi,
+    lokasi_map,
+    waktu,
+    audience,
+    cp: contact_person,
+  } = req.body;
 
+  if(!id) {
+    res.status(400).json({ status: 'fail', errors: { id: 'Id tidak valid' } });
+    return;
+  }
+
+  const payloadValidation = invatationPayloadValidation(req, res, {
+    tema, lokasi, lokasi_map, waktu, audience, contact_person, waktu,
+  });
+
+  if(payloadValidation) {
+    res.status(400).json({ status: 'fail', errors: payloadValidation });
+    return;
+  };
+  
   try {
-    const invitation = await Invitation.findOneAndRemove({ _id: id });
-    res.status(201).json({ status: 'ok', invitation });
-    console.log(invitation);
+    const user = await auth.userAuth(req, res);
+    if (user) {
+      const user_id = user._id;
+      const filter = { user_id, _id: id };
+
+      const payload = {
+        user_id,
+        tema,
+        lokasi,
+        lokasi_map,
+        waktu,
+        audience,
+        contact_person,
+      };
+
+      const invitation = await Invitation.findOneAndUpdate(filter, payload);
+      res.status(201).json({ status: 'ok', invitation: invitation._id });
+    } else {
+      res.status(400).json({ status: 'fail', message: 'User is invalid' });
+    }
   } catch (err) {
     console.log(err);
+    res.status(500).json({ status: 'fail', message: err.message });
+  };
+};
+
+const invite_delete = async (req, res) => {
+  const { id } = req.body;
+
+  if(!id) {
+    res.status(400).json({ status: 'fail', errors: { id: 'Id tidak valid' } });
+    return;
+  }
+
+  try {
+    const user = await auth.userAuth(req, res);
+    if (user instanceof Error) {
+      throw user;
+    }
+    if (user) {
+      const filter = { user_id: user._id, _id: id };
+      const invitation = await Invitation.findOneAndDelete(filter);
+      res.status(200).json({ status: 'ok', invitation: invitation._id });
+      console.log('id salah',invitation);
+    }
+  } catch (err) {
+    // jika id salah path _id string
+    if (error.)
+    console.log('error', err);
+    res.status()
   }
 };
 

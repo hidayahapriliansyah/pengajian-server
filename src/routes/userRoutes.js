@@ -16,8 +16,8 @@ router.post('/invite', userController.invite_post);
 router.get('/invite/create', userController.invite_create_get);
 router.get('/invite/:id', userController.invite_detail_get);
 router.get('/invite/:id/edit', userController.invite_edit_get);
-router.patch('/invite/:id', userController.invite_patch);
-router.delete('/invite/:id', userController.invite_delete);
+router.patch('/invite', userController.invite_patch);
+router.delete('/invite', userController.invite_delete);
 
 router.get('/profile', userController.profile_get);
 router.get('/profile/edit', userController.profile_edit);

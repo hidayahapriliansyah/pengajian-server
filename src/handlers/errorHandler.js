@@ -32,7 +32,44 @@ const invitationError = (err) => {
   return errors;
 };
 
+const invatationPayloadValidation = (req, res, {
+    id, tema, lokasi, waktu, lokasi_map, audience, contact_person,
+  }) => {
+
+  let errors = {};
+  const now = new Date();
+  const timeBody = new Date(waktu);
+
+  if (now > timeBody) {
+    errors.waktu = 'Waktu tidak valid. Waktu sudah berlalu.';
+    return errors;
+  }
+
+  if (!tema) {
+    errors.tema = 'Tema harus diisi';
+    return errors;
+  } else if (!lokasi) {
+    errors.lokasi = 'Lokasi harus diisi';
+    return errors;
+  } else if (!lokasi_map) {
+    errors.lokasi_map = 'Link lokasi harus diisi';
+    return errors;
+  } else if (!waktu) {
+    errors.waktu = 'Waktu harus diisi';
+    return errors;
+  } else if (!audience) {
+    errors.audience = 'Audience harus diisi';
+    return errors;
+  } else if (!contact_person) {
+    errors.contact_person = 'Contact person harus diisi';
+    return errors;
+  }
+
+  return null;
+};
+
 export {
   signupError,
   invitationError,
+  invatationPayloadValidation,
 };

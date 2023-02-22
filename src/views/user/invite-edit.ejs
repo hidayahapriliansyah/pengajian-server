@@ -1,0 +1,291 @@
+<%- include('../partials/header') %> <%- include('../partials/navbar') %>
+
+
+<main class="w-full max-w-[1444px] mt-[60px] mx-auto">
+  <section class="w-full p-6 flex flex-col">
+    <h1 class="text-center font-bold text-2xl md:text-3xl my-5 text-green-700">
+      Buat Undangan
+    </h1>
+    <p id="id_error" class="mt-1 text-center text-sm sm:text-base text-red-700"></p>
+
+    <form class="md:min-w-[700px] md:max-w-[800px] md:mx-auto">
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div class="md:max-w-[338px]">
+          <label
+          for="tema"
+          class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+            >Tema <span class="text-red-600">*</span></label
+          >
+          <input
+            type="text"
+            id="tema"
+            value="<%= invitation.tema %>"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            placeholder="Kajian Isra Mi'raj, Berkah Ramadan ..."
+            autofocus required
+          />
+          <div id="tema_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+        </div>
+        <div class="md:max-w-[338px]">
+          <label
+            for="waktu"
+            class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+            >Waktu <span class="text-red-600">*</span></label
+          >
+          <input
+            type="datetime-local"
+            id="waktu"
+            value="<%= invitation.waktu %>"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            placeholder="Doe"
+            required
+          />
+          <div id="waktu_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+        </div>
+        <div class="md:max-w-[338px]">
+          <label
+            for="lokasi"
+            class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+            >Lokasi <span class="text-red-600">*</span></label
+          >
+          <textarea
+            type="text"
+            id="lokasi"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            placeholder="Masukkan alamat lengkap lokasi"
+            required
+          ><%= invitation.lokasi %></textarea>
+          <div id="lokasi_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+        </div>
+        <div class="md:max-w-[338px]">
+          <label
+            for="lokasi-map"
+            class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+            >Link Lokasi Map <span class="text-red-600">*</span></label
+          >
+          <textarea
+            type="url"
+            id="lokasi-map"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            placeholder="https://www.google.com/maps/place/Bandung,+Kota+Bandung,+Jawa+Barat/..."
+            required
+          ><%= invitation.lokasi_map %></textarea>
+          <div id="lokasi_map_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+        </div>
+        <div class="md:max-w-[338px]">
+          <label
+            for="cp"
+            class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+            >No. Hp. / WA yang dapat dihubungi <span class="text-red-600">*</span></label
+          >
+          <input
+            type="number"
+            id="cp"
+            value="<%= invitation.cp %>"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            placeholder="08xxxxxxxxx"
+            required
+          />
+          <div id="cp_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+        </div>
+        <div class="md:max-w-[338px]">
+          <label
+            for="audience"
+            class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+            >Audience <span class="text-red-600">*</span></label
+          >
+          <input
+            type="text"
+            id="audience"
+            value="<%= invitation.audience %>"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            placeholder="Jamaah pengajian, Muda mudi, Aparat Pemerintah ..."
+            required
+          />
+          <div id="audience_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        id="btn-submit"
+        data-doc="<%= invitation.id %>"
+        class="block md:mx-auto text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm sm:text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+      >
+        Ajukan Undangan
+      </button>
+    </form>
+  </section>
+</main>
+
+<script>
+  const disableBtn = () => {
+    const elementErr = document.querySelectorAll('[id$="error"]');
+    const btnSubmit = document.querySelector('#btn-submit');
+    const disable = {};
+    elementErr.forEach((el) => {
+      if (el.textContent !== '') {
+        disable.on = true;
+      }
+    });
+
+    if ('on' in disable) {
+      btnSubmit.classList.add('btn-disabled');
+      btnSubmit.classList.remove('hover:bg-green-800');
+      btnSubmit.setAttribute('disabled', '');
+    } else {
+      btnSubmit.classList.remove('btn-disabled');
+      btnSubmit.classList.add('hover:bg-green-800');
+      btnSubmit.removeAttribute('disabled');
+    }
+  };
+
+  const tema = document.querySelector('#tema');
+  const temaError = document.querySelector('#tema_error');
+  tema.addEventListener('keyup', (e) => {
+    if (e.target.value.length < 5) {
+      temaError.textContent = 'Tema minimal memiliki 5 karakter';
+    } else {
+      temaError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  tema.addEventListener('focusout', (e) => {
+    if (e.target.value === '') {
+      temaError.textContent = 'Tema harus diisi';
+    } else {
+      temaError.textContent = '';
+    }
+    disableBtn();
+  });
+  
+  const waktu = document.querySelector('#waktu');
+  const waktuError = document.querySelector('#waktu_error');
+  
+  waktu.addEventListener('focusout', (e) => {
+    const now = new Date();
+    const input = new Date(e.target.value);
+
+    if (e.target.value === '') {
+      waktuError.textContent = 'Waktu harus diisi';
+    } else if (input < now) {
+      waktuError.textContent = 'Waktu tidak valid. Waktu sudah berlalu.';
+    } else {
+      waktuError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  const lokasi = document.querySelector('#lokasi');
+  const lokasiError = document.querySelector('#lokasi_error');
+  lokasi.addEventListener('keyup', (e) => {
+    if (e.target.value.length < 20) {
+      lokasiError.textContent = 'Lokasi minimal memiliki 20 karakter. Mohon isi alamat dengan lengkap.'
+    } else {
+      lokasiError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  const lokasiMap = document.querySelector('#lokasi-map');
+  const lokasiMapError = document.querySelector('#lokasi_map_error');
+  lokasiMap.addEventListener('focusout', (e) => {
+    if (e.target.value === '') {
+      lokasiMapError.textContent = 'Link Lokasi Map harus di isi';
+    } else {
+      lokasiMapError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  const cp = document.querySelector('#cp');
+  const cpError = document.querySelector('#cp_error');
+  cp.addEventListener('keyup', (e) => {
+    if (e.target.value.length === 0) {
+      cpError.textContent = 'Contact Person harus diisi';
+    } else if (e.target.value.length < 11) {
+      cpError.textContent = 'Contact Person minimal memiliki 11 karakter';
+    } else {
+      cpError.textContent = '';
+    }
+  });
+
+  cp.addEventListener('focusout', (e) => {
+    if (e.target.value === '') {
+      cpError.textContent = 'Contact Person harus diisi';
+    } else {
+      cpError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  const audience = document.querySelector('#audience');
+  const audienceError = document.querySelector('#audience_error');
+  audience.addEventListener('keyup', (e) => {
+    if (e.target.value.length < 5) {
+      audienceError.textContent = 'Audience minimal memiliki 5 karakter';
+    } else {
+      audienceError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  audience.addEventListener('focusout', (e) => {
+    if (e.target.value === '') {
+      audienceError.textContent = 'Audience harus diisi';
+    }
+    disableBtn();
+  });
+  
+  
+  const form = document.querySelector('form');
+  form.addEventListener('submit',async (e) => {
+    e.preventDefault();
+    
+    const id = document.querySelector('#btn-submit').dataset.doc;
+
+    const payload = {
+      id, 
+      tema : tema.value, 
+      lokasi: lokasi.value,
+      lokasi_map: lokasiMap.value,
+      waktu: waktu.value,
+      audience: audience.value, 
+      cp: cp.value,
+    };
+
+    try {
+      const response = await fetch(`<%= endpoint %>/invite`, {
+        method: 'PATCH',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json', },
+      });
+      const data = await response.json();
+
+      if (data.invitation) {
+        location.assign('/invite');
+      }
+
+      if (data.errors.id) {
+        const idError = document.querySelector('#id_error');
+        idError.textContent = data.errors.id;
+      }
+
+      if (data.errors) {
+        temaError.textContent = data.errors.tema || null;
+        lokasiError.textContent = data.errors.lokasi || null;
+        waktuError.textContent = data.errors.waktu || null;
+        lokasiMapError.textContent = data.errors.lokasi_map || null;
+      }
+
+      if (data.message === 'User is invalid') {
+        location.assign('/login');
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+</script>
+<%- include('../partials/footer') %>
