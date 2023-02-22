@@ -196,15 +196,20 @@
   const deleteInvitation = document.querySelector('#delete-invitation');
   deleteInvitation.addEventListener('click', async (e) => {
     console.log(deleteInvitation.dataset.doc);
-    
+
     try {
-      const deletedInvitation = await fetch(`<%= invitation.endpoint %>/invite`,{
+      const response= await fetch(`<%= endpoint %>/invite`,{
         method: 'DELETE',
         body: JSON.stringify({ id: deleteInvitation.dataset.doc }),
         headers: {'Content-Type': 'application/json'},
       });
-    } catch (err) {
 
+      const data = await response.json();
+      if (data.invitation) {
+        location.assign('/invite');
+      }
+    } catch (err) {
+      alert('ERROR:', err.message );
     };
   });
 </script>

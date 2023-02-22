@@ -88,7 +88,7 @@ const invite_get = async (req, res) => {
     if (user) {
       const invitations = await Invitation.find({ user_id: user._id });
       const invitationsColl = makeInvitationCollection(invitations);
-      res.render('user/invite', { title: 'Undangan', invitations: invitationsColl });
+      res.render('user/invite', { title: 'Undangan', invitations: invitationsColl, endpoint: process.env.API_ENDPOINT });
     } else {
       res.status(403).json({ status: 'fail', message: 'User is invalid' });
     }
