@@ -82,6 +82,9 @@ const makeInvitationDocument = (invitation, timeraw) => {
 const invite_get = async (req, res) => {
   try {
     const user = await auth.userAuth(req, res);
+    if (user instanceof Error) {
+      throw user;
+    }
     if (user) {
       const invitations = await Invitation.find({ user_id: user._id });
       const invitationsColl = makeInvitationCollection(invitations);
@@ -90,7 +93,12 @@ const invite_get = async (req, res) => {
       res.status(403).json({ status: 'fail', message: 'User is invalid' });
     }
   } catch (err) {
-    console.log(err);
+    if (err.message === 'User is invalid') {
+      res.redirect('/login');
+      return;
+    }
+
+    res.status(500).json({ status: 'fail', message: err });
   }
 };
 
@@ -115,30 +123,52 @@ const invite_post = async (req, res) => {
 
   try {
     const user = await auth.userAuth(req, res);
-    if (user) {
-      const user_id = user._id;
-      const payload = {
-        user_id,
-        tema,
-        lokasi,
-        lokasi_map,
-        waktu,
-        audience,
-        contact_person,
-      };
-      const invitation = await Invitation.create(payload);
-      res.status(201).json({ status: 'ok', invitation: invitation._id });
-    } else {
-      res.status(400).json({ status: 'fail', message: 'User is invalid' });
+    if (user instanceof Error) {
+      throw user;
     }
+
+    const user_id = user._id;
+    const payload = {
+      user_id,
+      tema,
+      lokasi,
+      lokasi_map,
+      waktu,
+      audience,
+      contact_person,
+    }
+    const invitation = await Invitation.create(payload);
+    res.status(201).json({ status: 'ok', invitation: invitation._id });
   } catch (err) {
+    if (err.message === 'User is invalid') {
+      res.redirect('/login');
+      return;
+    }
+
     const errors = handleErrors(err);
-    res.status(400).json({ status: 'fail', errors });
+    if (errors) {
+      res.status(400).json({ status: 'fail', errors });
+    } else {
+      res.status(500).json({ status: 'fail', message: err });
+    }
   }
 };
 
-const invite_create_get = (req, res) => {
-  res.render('user/invite-create', { title: 'Ajukan Undangan', endpoint: process.env.API_ENDPOINT });
+const invite_create_get = async (req, res) => {
+  try {
+    const user = await auth.userAuth(req, res);
+    if (user instanceof Error) {
+      throw user;
+    }
+    res.render('user/invite-create', { title: 'Ajukan Undangan', endpoint: process.env.API_ENDPOINT });
+  } catch (err) {
+    if (err.message === 'User is invalid') {
+      res.redirect('/login');
+      return;
+    }
+
+    res.status(500).json({ status: 'fail', message: 'error' });
+  }
 };
 
 const invite_detail_get = async (req, res) => {
@@ -146,26 +176,28 @@ const invite_detail_get = async (req, res) => {
 
   try {
     const user = await auth.userAuth(req, res);
-    if (!(user instanceof Error)) {
-      const invitation = await Invitation.findOne({ _id: id, user_id: user._id });
-      if (invitation) {
-        const invitationDoc = makeInvitationDocument(invitation);
-        return res.render('user/invite-detail', { title: 'Undangan', invitation: invitationDoc, endpoint: process.env.API_ENDPOINT });
-      } else {
-        return res.render('user/404', { title: '404' });
-      }
-    } else {
+    if (user instanceof Error) {
       throw user;
+    }
+    const invitation = await Invitation.findOne({ _id: id, user_id: user._id });
+    if (invitation) {
+      const invitationDoc = makeInvitationDocument(invitation);
+      return res.render('user/invite-detail', { title: 'Undangan', invitation: invitationDoc, endpoint: process.env.API_ENDPOINT });
+    } else {
+      return res.render('user/404', { title: '404' });
     }
   } catch (err) {
     if (err.message === 'User is invalid') {
       res.redirect('/login');
+      return;
     }
     
     if(err.kind = 'ObjectId') {
-      // invitation id error
-      return res.render('user/404', { title: '404' });
+      res.render('user/404', { title: '404' });
+      return;
     }
+
+    res.status(500).json({ status: 'fail', message: err });
   }
 };
 
@@ -187,11 +219,13 @@ const invite_edit_get = async (req, res) => {
   } catch (err) {
     if (err.message === 'User is invalid') {
       res.redirect('/login');
+      return;
     }
 
     if(err.kind = 'ObjectId') {
       // invitation id error
-      return res.render('user/404', { title: '404' });
+      res.render('user/404', { title: '404' });
+      return;
     }
   }
 };
@@ -223,27 +257,29 @@ const invite_patch = async (req, res) => {
   
   try {
     const user = await auth.userAuth(req, res);
-    if (user) {
-      const user_id = user._id;
-      const filter = { user_id, _id: id };
-
-      const payload = {
-        user_id,
-        tema,
-        lokasi,
-        lokasi_map,
-        waktu,
-        audience,
-        contact_person,
-      };
-
-      const invitation = await Invitation.findOneAndUpdate(filter, payload);
-      res.status(201).json({ status: 'ok', invitation: invitation._id });
-    } else {
-      res.status(400).json({ status: 'fail', message: 'User is invalid' });
+    if (user instanceof Error) {
+      throw user;
     }
+    const user_id = user._id;
+    const filter = { user_id, _id: id };
+
+    const payload = {
+      user_id,
+      tema,
+      lokasi,
+      lokasi_map,
+      waktu,
+      audience,
+      contact_person,
+    };
+
+    const invitation = await Invitation.findOneAndUpdate(filter, payload);
+    res.status(201).json({ status: 'ok', invitation: invitation._id });
   } catch (err) {
-    console.log(err);
+    if (err.message === 'User is invalid') {
+      res.redirect('/login');
+      return;
+    }
     res.status(500).json({ status: 'fail', message: err.message });
   };
 };
@@ -261,17 +297,16 @@ const invite_delete = async (req, res) => {
     if (user instanceof Error) {
       throw user;
     }
-    if (user) {
-      const filter = { user_id: user._id, _id: id };
-      const invitation = await Invitation.findOneAndDelete(filter);
-      res.status(200).json({ status: 'ok', invitation: invitation._id });
-      console.log('id salah',invitation);
-    }
+    const filter = { user_id: user._id, _id: id };
+    const invitation = await Invitation.findOneAndDelete(filter);
+    res.status(200).json({ status: 'ok', invitation: invitation._id });
   } catch (err) {
-    // jika id salah path _id string
-    if (error.)
-    console.log('error', err);
-    res.status()
+    if (err.message === 'User is invalid') {
+      res.redirect('/login');
+      return;
+    }
+
+    res.status(500).json({ status: 'fail', message: err });
   }
 };
 

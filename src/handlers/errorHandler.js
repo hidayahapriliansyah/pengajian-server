@@ -21,6 +21,7 @@ const signupError = (err) => {
 };
 
 const invitationError = (err) => {
+  // error from Schema mongoose
   let errors = {};
 
   if (err.message.includes('invitation validation failed')) {
