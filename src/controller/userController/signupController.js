@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
+
 import User from '../../models/User.js';
 import { signupError as handleErrors, signupPayloadValidation } from '../../handlers/errorHandler.js';
+import createUserVerification from '../../service/createUserVerification.js';
 
 dotenv.config();
 
@@ -9,9 +11,10 @@ const signup_get = (req, res) => {
 };
 
 const signup_post = async (req, res) => {
+  
   const {
-    userName,
-    e_mail,
+    username,
+    email,
     password,
     nama_lengkap,
     nama_panggilan,
@@ -20,8 +23,8 @@ const signup_post = async (req, res) => {
   } = req.body;
 
   const payload = {
-    username: userName,
-    email: e_mail,
+    username,
+    email,
     password,
     nama_lengkap,
     nama_panggilan,
@@ -30,14 +33,21 @@ const signup_post = async (req, res) => {
   };
 
   const payloadValidation = signupPayloadValidation(payload);
-  if (signupPayloadValidation) {
+  if (payloadValidation) {
     res.status(400).json({ status: 'fail', errors: payloadValidation });
     return;
   }
 
   try {
     const user = await User.create(payload);
-    res.status(201).json({ status: 'ok', user: user.id });
+
+    const { _id: userId, email, nama_panggilan: namaPanggilan } = user;
+    const verification = createUserVerification({ userId, email, namaPanggilan });
+    if (verification instanceof Error) {
+      throw verification;
+    }
+
+    res.status(201).json({ status: 'ok', user: user._id });
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ status: 'fail', errors });

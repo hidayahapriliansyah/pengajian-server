@@ -23,3 +23,5 @@ transporter.verify((err, success) => {
 });
 
 // try sending message
+
+export default transporter;

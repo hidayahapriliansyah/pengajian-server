@@ -1,13 +1,421 @@
-<%- include('partials/header') %>
-<%- include('partials/navbar') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  </head>
+  <body>
+    <div class="banner">
+      <img
+        src="image/decoration-2.svg"
+        alt="Decoration Design"
+        class="decoration-left-banner"
+      />
+      <div class="layout-banner">
+        <div class="content-banner-1">
+          <div class="header-menu-box">
+            <div class="hamburger-menu" onclick="buttonHamburger();">
+              <ion-icon name="menu-outline"></ion-icon>
+            </div>
+            <div class="layout-menu">
+              <ul id="list-menu">
+                <div
+                  class="hamburger-menu hamburger-menu-close"
+                  onclick="buttonHamburger();"
+                >
+                  <ion-icon name="close-outline"></ion-icon>
+                </div>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Event</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+              <!-- <button class="button-sign"><a href="#">Undang</a></button> -->
+              <!-- Syntak yg di komen di bawah adalah button profile, bisa digunakan ketika user sudah login -->
+              <a href="#">
+                <div class="button-profil">
+                  <span>Muhamad Rafli</span>
+                  <div class="icon-social-media">
+                    <ion-icon name="person"></ion-icon>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <h1>
+            Bangun<br />
+            Rumah <font color="#DD3F4C">Tahfidz</font>
+          </h1>
+          <h1>
+            Untuk Santri <br />
+            <font color="#DD3F4C">Penghafal </font>Qur’an
+          </h1>
+          <p>
+            Lahirkan generasi qurani penerus <br />
+            bangsa dengan membangun Rumah Tahfidz
+          </p>
+          <div class="social-media-banner">
+            <div class="layout-icon-social-media">
+              <a href="https://www.instagram.com/handy.bonny/" target="_blank">
+                <div class="icon-social-media">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </div>
+              </a>
+              <a
+                href="https://web.facebook.com/officialhandybonny"
+                target="_blank"
+              >
+                <div class="icon-social-media">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/@HandyBonny" target="_blank">
+                <div class="icon-social-media">
+                  <ion-icon name="logo-youtube"></ion-icon>
+                </div>
+              </a>
+              <a
+                href="https://www.tiktok.com/@handybonnyofficial"
+                target="_blank"
+              >
+                <div class="icon-social-media">
+                  <ion-icon name="logo-tiktok"></ion-icon>
+                </div>
+              </a>
+            </div>
+            <div class="website-text-banner">
+              <span>www.handybonny.com</span>
+            </div>
+          </div>
+          <img
+            src="image/papap.svg"
+            alt="Foto Papap | Ustadz Handy Bonny"
+            class="mobile-image-papap"
+          />
+        </div>
+        <div class="content-banner-2">
+          <div class="email-text-banner">
+            <span>handy.bonny@gmail.com</span>
+          </div>
+          <img
+            src="image/papap.svg"
+            alt="Papap | Handy Bonny"
+            class="papap-image"
+          />
+          <img
+            src="image/decoration-3.svg"
+            alt="Decoration Design"
+            class="decoration-behind-papap"
+          />
+          <img
+            src="image/decoration-1.svg"
+            alt="Decoration Design"
+            class="decoration-right-banner"
+          />
+        </div>
+      </div>
+    </div>
 
-  <main class="w-full">
-    <section class="w-full min-h-[100vh] flex justify-center items-center bg-green-100">
-      <h1 class="text-2xl text-green-600">Home page</h1>
-    </section>
-    <section class="w-full min-h-[100vh] flex justify-center items-center bg-green-200">
-      <h1 class="text-2xl text-green-600">Another Content</h1>
-    </section>
-  </main>
+    <div class="register">
+      <div class="box-register">
+        <h2>Klik tombol registrasi di bawah ini untuk mendaftar program.</h2>
+        <a href="#"><button>Registrasi</button></a>
+        <img
+          src="image/islamic-ornamen-1.svg"
+          alt="Islamic Ornamen"
+          class="islamic-ornamen-1"
+        />
+        <img
+          src="image/islamic-ornamen-2.svg"
+          alt="Islamic Ornamen"
+          class="islamic-ornamen-2"
+        />
+      </div>
+    </div>
 
-<%- include('partials/footer') %>
+    <div class="program">
+      <img
+        src="image/decoration-3.svg"
+        alt="Decoration Design"
+        class="content-program-decoration"
+      />
+      <img
+        src="image/decoration-1.svg"
+        alt="Decoration Design"
+        class="program-decoration"
+      />
+      <img
+        src="image/image-program.png"
+        alt="Papap | Handy Bonny"
+        class="program-image"
+      />
+      <div class="content-program">
+        <h1>Program</h1>
+        <p>
+          Terus berproses dan berprogres, Jangan banyak protes<br />
+          Lakukan sampai beres
+        </p>
+        <div class="swiper program-slide">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Tahsin Ranger</span>
+                <span>Al-Matsurat</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Wanita Berdaya</span>
+                <span>Dai Pelosok</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Bea Siswa</span>
+                <span>Pesan Tren</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Berasind</span>
+                <span>Peduli Anak</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Wakaf Qur'an</span>
+                <span>Al-Qur'an Baik</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Sumur Air</span>
+                <span>Al-Matsurat</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Paket Shalat Khusyu</span>
+                <span>Santunan Yatim, Janda, Dhuafa</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Ilmuminati</span>
+                <span>Peduli Lansia</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="layout-slide">
+                <span>Perlengkapan Mesjid</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="partnership">
+      <h1>Partnership</h1>
+      <div class="swiper partnership-slide">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="partnership-box">
+              <img src="image/logo-1.svg" alt="" />
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="partnership-box">
+              <img src="image/logo-2.svg" alt="" />
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="partnership-box">
+              <img src="image/logo-3.svg" alt="" />
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="partnership-box">
+              <img src="image/logo-4.svg" alt="" />
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="partnership-box">
+              <img src="image/logo-5.svg" alt="" />
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="partnership-box">
+              <img src="image/logo-6.svg" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="content-footer">
+        <div class="layout-footer">
+          <div class="heading-footer">
+            <h2>Media Sosial</h2>
+          </div>
+          <ul class="list-media-sosial">
+            <li>
+              <a href="https://www.instagram.com/handy.bonny/" target="_blank">
+                <div class="icon-footer">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </div>
+                <span>@handy.bonny</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://web.facebook.com/officialhandybonny"
+                target="_blank"
+              >
+                <div class="icon-footer">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </div>
+                <span>@officialhandybonny</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/@HandyBonny" target="_blank">
+                <div class="icon-footer">
+                  <ion-icon name="logo-youtube"></ion-icon>
+                </div>
+                <span>@HandyBonny</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <div class="icon-footer">
+                  <img
+                    src="image/telegram.svg"
+                    alt="Papap | Ustadz Handy Bonny Telegram"
+                  />
+                </div>
+                <span>@handy.bonny</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://open.noice.id/user/8e56e301-ab1d-4930-a8a4-c8f4e9381a5d"
+                target="_blank"
+              >
+                <div class="icon-footer">
+                  <img
+                    src="image/noice.svg"
+                    alt="Papap | Ustadz Handy Bonny Noice"
+                  />
+                </div>
+                <span>@handybonny</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.tiktok.com/@handybonnyofficial"
+                target="_blank"
+              >
+                <div class="icon-footer">
+                  <ion-icon name="logo-tiktok"></ion-icon>
+                </div>
+                <span>@handybonnyofficial</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="layout-footer">
+          <div class="heading-footer">
+            <h2>Tautan Lain</h2>
+          </div>
+          <ul class="list-menu-footer">
+            <li><a href="#">Merchandise</a></li>
+            <li><a href="#">Video Kajian</a></li>
+            <li><a href="#">Jadwal</a></li>
+          </ul>
+        </div>
+        <div class="layout-footer">
+          <div class="heading-footer">
+            <h2>Office</h2>
+          </div>
+          <p>
+            Jalan Permai Raya No. 54, <br />Mekar Rahayu, Kecamatan Margaasih
+            <br />Kab. Bandung Jawa Barat 40216
+          </p>
+        </div>
+      </div>
+      <div class="copyright-footer">
+        <span>Copyright © Handy Bonny 2023</span>
+        <p>
+          <i>All right reserved.</i> Powered by
+          <a href="prahwa.com">prahwa.io</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      var program = new Swiper('.program-slide', {
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+      });
+    </script>
+
+    <script>
+      var partnership = new Swiper('.partnership-slide', {
+        breakpoints: {
+          640: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 0,
+          },
+        },
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    </script>
+    <script>
+      function buttonHamburger() {
+        document.getElementById('list-menu').classList.toggle('active');
+      }
+    </script>
+  </body>
+</html>

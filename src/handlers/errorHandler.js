@@ -11,6 +11,10 @@ const signupError = (err) => {
     }
   }
 
+  if (err.message = 'Terjadi kesalahan saat signup') {
+    return err;
+  }
+
   if (err.message.includes('user validation failed')) {
     Object.values(err.errors).forEach((error) => {
       errors[error.path] = error.message;

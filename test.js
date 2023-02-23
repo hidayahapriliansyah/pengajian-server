@@ -1,4 +1,5 @@
 import validator from 'validator';
+import moment from 'moment-timezone';
 
 const username = 'asdasd0900909_.';
 
@@ -14,6 +15,11 @@ console.log('new Date ngaco',typeof new Date('sdsdsd06/28/2023'));
 const tglNgaco = new Date('sdsdsdsdsd');
 console.log(typeof tglNgaco);
 console.log(tglNgaco instanceof Date);
+
+console.log('6 jam', Date.now() + 6 * 60 * 60 * 1000);
+console.log('jam biner:', Date.now());
+console.log('benarkah 6 jam?', new Date(Date.now() + 6 * 60 * 60 * 1000 - Date.now())); // betul
+console.log('benarkah 6 jam dari sekarang?', moment.tz(new Date(Date.now() + 6 * 60 * 60 * 1000), 'Asia/Jakarta')); // betul
 
 /*
   sumber : https://stackoverflow.com/questions/59441959/validator-npm-username-validation
