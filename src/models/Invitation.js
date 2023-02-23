@@ -27,7 +27,7 @@ const invitationSchema = new mongoose.Schema({
     validate: [ validator.isURL, 'Input yang dimasukkan harus berupa URL'],
   },
   waktu: {
-    type: String,
+    type: Date,
     require: [true, 'Waktu harus diisi'],
   },
   audience: {
