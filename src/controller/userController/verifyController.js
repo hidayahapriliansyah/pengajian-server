@@ -6,19 +6,21 @@ const verify_get = async (req, res) => {
   const uniqueString = req.params.uniqueString;
 
   try {
-    const verification = await UserVerification.findOne({ unique_string: uniqueString });
-    console.log(verification);
+    const verification = await UserVerification.findOne({
+      unique_string: uniqueString,
+      expired_at: { $gt: new Date() }
+    });
+
     if (verification) {
       // ubah user isverified
       const userId = verification.user_id;
       const user = await User.findOneAndUpdate({ _id: userId }, { is_verified: true });
-      console.log(user);
-      res.status(200).json({ status: 'SUCCESS', user: user._id });
+      res.status(200).json({ status: 'ok', user: user._id });
     } else {
-      throw new Error('Kode verifikasi salah');
+      throw new Error('Kode verifikasi tidak valid');
     }
-  } catch {
-    // jika salah signup
+  } catch (err) {
+    res.status(400).json({ status: 'fail', message: err.message })
   }
 };
 

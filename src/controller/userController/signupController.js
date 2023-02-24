@@ -2,7 +2,8 @@ import dotenv from 'dotenv';
 
 import User from '../../models/User.js';
 import { signupError as handleErrors, signupPayloadValidation } from '../../handlers/errorHandler.js';
-import createUserVerification from '../../service/createUserVerification.js';
+// import createUserVerification from '../../service/createUserVerification.js';
+import UserVerification from '../../models/UserVerification.js';
 
 dotenv.config();
 
@@ -40,6 +41,16 @@ const signup_post = async (req, res) => {
 
   try {
     const user = await User.create(payload);
+    if (user) {
+      const userId = user._id;
+
+      const sixHourFromNow = new Date(Date.now() + 6 * 60 * 60 * 1000);
+      const verification = await UserVerification.create({
+        user_id: userId,
+        unique_string: 'uniqueString',
+        expired_at: sixHourFromNow,
+      });
+    }
 
     // const { _id: userId, email, nama_panggilan: namaPanggilan } = user;
     // const verification = createUserVerification({ userId, email, namaPanggilan });
