@@ -41,11 +41,11 @@ const signup_post = async (req, res) => {
   try {
     const user = await User.create(payload);
 
-    const { _id: userId, email, nama_panggilan: namaPanggilan } = user;
-    const verification = createUserVerification({ userId, email, namaPanggilan });
-    if (verification instanceof Error) {
-      throw verification;
-    }
+    // const { _id: userId, email, nama_panggilan: namaPanggilan } = user;
+    // const verification = createUserVerification({ userId, email, namaPanggilan });
+    // if (verification instanceof Error) {
+    //   throw verification;
+    // }
 
     res.status(201).json({ status: 'ok', user: user._id });
   } catch (err) {

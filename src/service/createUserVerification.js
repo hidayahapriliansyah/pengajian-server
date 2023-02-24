@@ -16,10 +16,8 @@ const createUserVerification = async ({ userId, email, namaPanggilan }) => {
       expired_at: new Date(Date.now() + 6 * 60 * 60 * 1000),
     });
     if (verification) {
-      console.log('to emailOption');
-      transporter.sendMail(emailOption({ email, namaPanggilan, uniqueString }));
-    } else {
-      throw Error('Terjadi kesalahan saat signup');
+      const sendMail = await transporter.sendMail(emailOption({ email, namaPanggilan, uniqueString }));
+      console.log(sendMail);
     }
   } catch (err) {
     return err;

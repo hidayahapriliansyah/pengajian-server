@@ -4,17 +4,19 @@ const signupError = (err) => {
   if (err.code === 11000) {
     if ('email' in err.keyPattern) {
       errors.email = 'Email sudah digunakan user lain.';
+      return errors;
     }
-
+    
     if ('username' in err.keyPattern) {
       errors.username = 'Username sudah digunakan user lain.'
+      return errors;
     }
   }
-
+  
   if (err.message = 'Terjadi kesalahan saat signup') {
     return err;
   }
-
+  
   if (err.message.includes('user validation failed')) {
     Object.values(err.errors).forEach((error) => {
       errors[error.path] = error.message;

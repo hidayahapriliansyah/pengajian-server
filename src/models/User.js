@@ -70,6 +70,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     maxLength: [200, 'Profesi maksimal memiliki 200 karakter'],
   },
+  isVerified: {
+    type: Boolean,
+    require: true,
+    default: false,
+  },
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {

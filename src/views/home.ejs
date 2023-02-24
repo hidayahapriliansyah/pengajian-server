@@ -47,16 +47,19 @@
                 <li><a href="#">Event</a></li>
                 <li><a href="#">Contact</a></li>
               </ul>
-              <!-- <button class="button-sign"><a href="#">Undang</a></button> -->
-              <!-- Syntak yg di komen di bawah adalah button profile, bisa digunakan ketika user sudah login -->
-              <a href="#">
-                <div class="button-profil">
-                  <span>Muhamad Rafli</span>
-                  <div class="icon-social-media">
-                    <ion-icon name="person"></ion-icon>
+              <% if (user) { %> 
+                <!-- Syntak yg di komen di bawah adalah button profile, bisa digunakan ketika user sudah login -->
+                <a href="#">
+                  <div class="button-profil">
+                    <span>Muhamad Rafli</span>
+                    <div class="icon-social-media">
+                      <ion-icon name="person"></ion-icon>
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              <% } else { %>
+                <button class="button-sign"><a href="/signup">Undang</a></button>
+              <% } %>
             </div>
           </div>
           <h1>
