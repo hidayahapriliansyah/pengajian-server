@@ -7,10 +7,12 @@ const verify_get = async (req, res) => {
 
   try {
     const verification = await UserVerification.findOne({ unique_string: uniqueString });
+    console.log(verification);
     if (verification) {
       // ubah user isverified
       const userId = verification.user_id;
-      const user = User.findOneAndUpdate({ _id: userId, isVerified: true });
+      const user = await User.findOneAndUpdate({ _id: userId }, { is_verified: true });
+      console.log(user);
       res.status(200).json({ status: 'SUCCESS', user: user._id });
     } else {
       throw new Error('Kode verifikasi salah');

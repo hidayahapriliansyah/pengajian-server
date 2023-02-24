@@ -70,7 +70,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     maxLength: [200, 'Profesi maksimal memiliki 200 karakter'],
   },
-  isVerified: {
+  is_verified: {
     type: Boolean,
     require: true,
     default: false,
