@@ -80,18 +80,26 @@ const sponsor_patch = async (req, res) => {
 };
 
 const sponsor_delete = async (req, res) => {
-  const id = req.params.id;
-  const filter = { _id: id, user_id: '63eda20dd8da687c892116bb' };
+  const user = await auth.userAuth(req, res);
+  if (user) {
+    const { id } = req.body;
+    if (!id) {
+      return res.redirect('user/404');
+    }
 
-  try {
-    const sponsor = await Sponsor.findOneAndDelete(filter, req.body);
-    // jika tidak ada yang delete akan mengembalikan null
-    res.status(201).json(sponsor);
-  } catch (err) {
-    // Harus bisa error handling jika ID salah. Soalnya ini errornya jadi ke Object Id nya
-    console.log(err);
-    res.send(err);
-  };
+    try {
+      const sponsor = await Sponsor.findOneAndDelete({ user_id: user._id, _id: id }, req.body);
+      if (!sponsor) {
+        return res.redirect('user/404');
+      }
+      res.status(201).json({status: 'ok', sponsor});
+    } catch (err) {
+      // Harus bisa error handling jika ID salah. Soalnya ini errornya jadi ke Object Id nya
+      console.log(err);
+    };
+  } else {
+    res.redirect('/login');
+  }
 };
 
 export {

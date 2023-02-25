@@ -30,7 +30,7 @@ router.get('/sponsor/create', userController.sponsor_create_get);
 router.get('/sponsor/:id', userController.sponsor_detail_get);
 router.get('/sponsor/:id/edit', userController.sponsor_edit_get);
 router.patch('/sponsor/:id', userController.sponsor_patch);
-router.delete('/sponsor/:id', userController.sponsor_delete);
+router.delete('/sponsor', userController.sponsor_delete);
 
 router.get('/notifications', userController.usernotifitacation_get);
 router.post('/notifications', userController.usernotification_post);

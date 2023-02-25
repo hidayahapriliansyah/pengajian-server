@@ -52,8 +52,6 @@
     <div id="table-position" class="relative w-full lg:max-w-[1200px] md:max-w-[800px] mx-auto overflow-x-auto shadow-md sm:rounded-lg bg-white">
 
     </div>
-
-    <p><%= sponsors  %></p>
   </section>
 </main>
 
@@ -115,20 +113,20 @@
                 <th
                   scope="row"
                   class="px-6 py-4 font-medium text-gray-900 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis"
-                ><a href="/sponsor/${d.id}" onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">${d.brand}</a></th>
+                ><a href="/sponsor/${d._id}" onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">${d.brand}</a></th>
                 <td class="px-6 py-4 whitespace-nowrap">${d.bentuk_kerjasama}</td>
                 <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">${d.contact_person}</td>
                 <td class="px-6 py-4">${d.status.toUpperCase()}</td>
                 <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
-                  <a href="/sponsor/${d.id}" title="Detail" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
+                  <a href="/sponsor/${d._id}" title="Detail" data-doc="${d._id}" class="w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
                     <%- include('../svg/eye-solid.ejs') %>
                   </a>
-                  <a href="/sponsor/${d.id}/edit" title="Edit" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
+                  <a href="/sponsor/${d._id}/edit" title="Edit" data-doc="${d._id}" class="w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
                     <%- include('../svg/pen.ejs') %>
                   </a>
-                  <button href="#" title="Hapus" data-doc="${d.id}"
+                  <button href="#" title="Hapus" data-doc="${d._id}"
                     data-tema="${d.brand}"
-                    data-doc="${d.id}"
+                    data-doc="${d._id}"
                     data-modal-target="popup-modal"
                     data-modal-toggle="popup-modal"
                     class="btn-option-delete w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
@@ -246,10 +244,7 @@
       const btnOptionGroup = document.querySelector('#btn-option-group');
       const btnOptionDeletes = document.querySelectorAll('.btn-option-delete');
       btnOptionDeletes.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-          console.log(btn.dataset.tema);
-          console.log(btn.dataset.doc);
-  
+        btn.addEventListener('click', (e) => {  
           const temaDeletePopup = document.querySelector('#tema-delete-invitaion-popup');
           const btnDeleteInvitationById = document.querySelector('#delete-invitation-popup');
           temaDeletePopup.textContent = `Ingin menghapus sponsorship ${btn.dataset.tema}?`;
@@ -257,15 +252,16 @@
 
           btnDeleteInvitationById.addEventListener('click', async () => {
             try {
-              const response = await fetch(`<%= endpoint %>/invite`,{
+              const response = await fetch(`<%= endpoint %>/sponsor`,{
                 method: 'DELETE',
                 body: JSON.stringify({ id: btnDeleteInvitationById.dataset.doc }),
                 headers: {'Content-Type': 'application/json'},
               });
 
               const data = await response.json();
-              if (data.invitation) {
-                location.assign('/invite');
+              console.log(data);
+              if (data.sponsor) {
+                location.assign('/sponsor');
               }
             } catch (err) {
               alert('ERROR:', err.message );
