@@ -1,5 +1,289 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
 
+<main class="w-full max-w-[1444px] min-h-[100vh] mt-[60px] mx-auto bg-midnight">
+  <section class="w-full p-6 flex flex-col">
+    <h1 class="text-center font-bold text-4xl my-5 text-white">
+      Undangan Saya
+    </h1>
 
-<main class="mt-40">
-  <% sponsors %>
+    <div class="w-full flex flex-row gap-3 justify-center items-center mx-auto mb-4">
+      <a href="/sponsor/create" id="dropdownDelayButton" data-dropdown-toggle="dropdownDelay" data-dropdown-delay="500" data-dropdown-trigger="hover" class="w-[44px] h-[44px] text-white bg-rose hover:bg-rose focus:ring-4 focus:outline-none focus:ring-rose font-medium rounded-full text-sm p-3 text-center inline-flex" type="button">
+        <%- include('../svg/plus') %>
+      </a>
+      <!-- Dropdown menu -->
+      <div id="dropdownDelay" class="z-10 hidden p-4 bg-rose divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <p class="font-bold text-white">Ajukan Undangan</p>
+      </div>
+      <button id="all" class="w-min h-min py-1 px-3 bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Semua</button>
+
+      <div id="btn-filter-group" class="w-max px-1 hidden md:flex md:flex-row md:gap-3">
+        <button class="tinjauan-btn w-min h-min py-1 px-3 hover:bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Tinjauan</button>
+        <button class="negosiasi-btn w-min h-min py-1 px-3 hover:bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Negosiasi</button>
+        <button class="diterima-btn w-min h-min py-1 px-3 hover:bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Diterima</button>
+        <button class="ditolak-btn w-min h-min py-1 px-3 hover:bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Ditolak</button>
+      </div>
+
+      <div class="block md:hidden">
+        <button id="dropdown-btn" data-dropdown-toggle="dropdown" class="text-white bg-white-500 border border-1 focus:ring-4 focus:outline-none  font-medium rounded-full text-sm sm:text-base px-3 py-1 text-center inline-flex items-center" type="button"><p>Filter</p>
+          <%- include('../svg/dropdown-downarrow') %>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm sm:text-base text-midnight" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <button id="tinjauan-filter" class="tinjauan-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tinjauan</button>
+              </li>
+              <li>
+                <button id="negosiasi-filter" class="negosiasi-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Negosiasi</button>
+              </li>
+              <li>
+                <button id="diterima-filter" class="diterima-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Diterima</button>
+              </li>
+              <li>
+                <button id="ditolak-filter" class="ditolak-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ditolak</button>
+              </li>
+            </ul>
+        </div>
+      </div>
+
+    </div>
+  
+    <div id="table-position" class="relative w-full lg:max-w-[1200px] md:max-w-[800px] mx-auto overflow-x-auto shadow-md sm:rounded-lg bg-white">
+
+    </div>
+
+    <p><%= sponsors  %></p>
+  </section>
 </main>
+
+<script>
+  const filterMenus = document.querySelectorAll('[id$="-filter"]');
+  const dropdownFilterBtn = document.querySelector('#dropdown-btn');
+  const dropdownFilterBtnP = document.querySelector('#dropdown-btn p');
+  const allFilterBtn = document.querySelector('#all');
+
+  filterMenus.forEach((el) => {
+    el.addEventListener('click', () => {
+      dropdownFilterBtnP.textContent = el.textContent;
+      dropdownFilterBtn.classList.add('bg-rose', 'hover:bg-rose');
+      allFilterBtn.classList.remove('bg-rose');
+    });
+  });
+  
+  allFilterBtn.addEventListener('click', () => {
+    dropdownFilterBtn.classList.remove('bg-rose', 'hover:bg-rose');
+    dropdownFilterBtnP.textContent = 'Filter';
+    allFilterBtn.classList.add('bg-rose');
+    btnFilterGroup.forEach((btn) => {
+      btn.classList.remove('bg-rose', 'hover:bg-rose');
+    });
+  });
+  
+  const btnFilterGroup = document.querySelectorAll('#btn-filter-group button');
+  btnFilterGroup.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      btnFilterGroup.forEach((editBtn) => {
+        editBtn.classList.remove('bg-rose', 'hover:bg-rose');
+        allFilterBtn.classList.remove('bg-rose');
+      });
+      e.target.classList.add('bg-rose', 'hover:bg-rose');
+    });
+  });
+
+  const tablePosition = document.querySelector('#table-position');
+  <% if (sponsors.length !== 0) { %>
+    const data = <%- JSON.stringify(sponsors) %>;
+  
+    const renderTable = (data) => {
+      return (`
+        <table class="w-full text-sm sm:text-base text-left text-gray-500 dark:text-gray-400">
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">Brand</th>
+              <th scope="col" class="px-6 py-3">Bentuk Kerja Sama</th>
+              <th scope="col" class="px-6 py-3">Contact</th>
+              <th scope="col" class="px-6 py-3">Status</th>
+              <th scope="col" class="px-6 py-3">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map((d) => (
+              `<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis"
+                ><a href="/sponsor/${d.id}" onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">${d.brand}</a></th>
+                <td class="px-6 py-4 whitespace-nowrap">${d.bentuk_kerjasama}</td>
+                <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">${d.contact_person}</td>
+                <td class="px-6 py-4">${d.status.toUpperCase()}</td>
+                <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
+                  <a href="/sponsor/${d.id}" title="Detail" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
+                    <%- include('../svg/eye-solid.ejs') %>
+                  </a>
+                  <a href="/sponsor/${d.id}/edit" title="Edit" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
+                    <%- include('../svg/pen.ejs') %>
+                  </a>
+                  <button href="#" title="Hapus" data-doc="${d.id}"
+                    data-tema="${d.brand}"
+                    data-doc="${d.id}"
+                    data-modal-target="popup-modal"
+                    data-modal-toggle="popup-modal"
+                    class="btn-option-delete w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
+                    <%- include('../svg/trash.ejs') %>
+                  </button>
+                </td>
+              </tr>
+            `
+            )).join('')}
+          </tbody>
+        </table>
+
+        <div
+          id="popup-modal"
+          tabindex="-1"
+          class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+          >
+          <div class="relative w-full h-full max-w-md md:h-auto">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+              <button
+                type="button"
+                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                data-modal-hide="popup-modal"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="sr-only">Close modal</span>
+              </button>
+              <div class="p-6 text-center">
+                <svg
+                  aria-hidden="true"
+                  class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <h3
+                  id="tema-delete-invitaion-popup"  
+                  class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
+                >
+                </h3>
+                <button
+                  id="delete-invitation-popup"
+                  data-modal-hide="popup-modal"
+                  type="button"
+                  class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                >
+                  Hapus
+                </button>
+                <button
+                  data-modal-hide="popup-modal"
+                  type="button"
+                  class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                >
+                  Batal
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `);
+    };
+  
+    if (data) {
+      tablePosition.innerHTML = renderTable(data);
+      
+      allFilterBtn.addEventListener('click', () => {
+        tablePosition.innerHTML = renderTable(data);
+      });
+  
+      const renderTableByBtnFilter = (buttons, filter) => {
+        buttons.forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            const filteredData = data.filter((d) => d.status === filter);
+            filteredData.length !== 0
+            ? tablePosition.innerHTML = renderTable(filteredData)
+            : tablePosition.innerHTML = `
+              <p class="text-center" style="padding: 20px;">Tidak ada ajuan sponsorship dengan status ${filter}</p>
+            `;
+          });
+        });
+      };
+  
+      const tinjauanBtn = document.querySelectorAll('.tinjauan-btn');
+      renderTableByBtnFilter(tinjauanBtn, 'tinjauan');
+  
+      const negosiasiBtn = document.querySelectorAll('.negosiasi-btn');
+      renderTableByBtnFilter(negosiasiBtn, 'negosiasi');
+  
+      const diterimaBtn = document.querySelectorAll('.diterima-btn');
+      renderTableByBtnFilter(diterimaBtn, 'diterima');
+  
+      const ditolakBtn = document.querySelectorAll('.ditolak-btn');
+      renderTableByBtnFilter(ditolakBtn, 'ditolak');
+
+      const btnOptionGroup = document.querySelector('#btn-option-group');
+      const btnOptionDeletes = document.querySelectorAll('.btn-option-delete');
+      btnOptionDeletes.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          console.log(btn.dataset.tema);
+          console.log(btn.dataset.doc);
+  
+          const temaDeletePopup = document.querySelector('#tema-delete-invitaion-popup');
+          const btnDeleteInvitationById = document.querySelector('#delete-invitation-popup');
+          temaDeletePopup.textContent = `Ingin menghapus sponsorship ${btn.dataset.tema}?`;
+          btnDeleteInvitationById.dataset.doc = btn.dataset.doc;
+
+          btnDeleteInvitationById.addEventListener('click', async () => {
+            try {
+              const response = await fetch(`<%= endpoint %>/invite`,{
+                method: 'DELETE',
+                body: JSON.stringify({ id: btnDeleteInvitationById.dataset.doc }),
+                headers: {'Content-Type': 'application/json'},
+              });
+
+              const data = await response.json();
+              if (data.invitation) {
+                location.assign('/invite');
+              }
+            } catch (err) {
+              alert('ERROR:', err.message );
+            };
+          });
+        });
+      });
+
+    } else {
+      tablePosition.innerHTML = `
+        <p class="text-center" style="padding: 20px;">Anda belum membuat ajuan sponsorhip. Klik + untuk membuat ajuan.</p>
+      `;
+    }
+  <% } else { %>
+    tablePosition.innerHTML = `
+      <p class="text-center" style="padding: 20px;">Anda belum membuat ajuan sponsorhip. Klik + untuk membuat ajuan.</p>
+    `;
+  <% } %>
+</script>
+
+<%- include('../partials/footer') %>

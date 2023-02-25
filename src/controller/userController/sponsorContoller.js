@@ -8,11 +8,12 @@ dotenv.config();
 
 const sponsor_get = async (req, res) => {
   const user = await auth.userAuth(req, res);
+
   if (user) {
     const userId = user._id;
     const sponsors = await Sponsor.find({ user_id: userId });
-    res.render('user/sponsor',{ status: 'ok', sponsors });
-  }
+    res.render('user/sponsor', { title: 'Sponsorship', sponsors, endpoint: process.env.API_ENDPOINT });
+  };
 };
 
 const sponsor_detail_get = async (req, res) => {
@@ -45,12 +46,12 @@ const sponsor_post = async (req, res) => {
 
   const {
     brand: brand,
-    kerjaSama: kerja_sama,
-    contactPerson: cp,
+    kerjaSama: bentuk_kerjasama,
+    contactPerson: contact_person,
   } = req.body;
 
   // sponsor input validation
-  const payloadValidation = sponsorPayloadValidation({ brand, kerja_sama, cp, });
+  const payloadValidation = sponsorPayloadValidation({ brand, bentuk_kerjasama, contact_person, });
   if (payloadValidation.errors) {
     const errors = payloadValidation;
     return res.status('404').json({ status: 'fail', errors });

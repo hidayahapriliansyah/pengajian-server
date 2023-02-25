@@ -193,7 +193,7 @@ const invatationPayloadValidation = ({
 };
 
 const sponsorPayloadValidation = ({
-  brand, kerja_sama, cp,
+  brand, bentuk_kerjasama, contact_person,
 }) => {
 
   let errors = {};
@@ -204,24 +204,24 @@ const sponsorPayloadValidation = ({
   } else if (brand.length < 3) {
     errors.brand = 'Brand minimal memiliki 3 karakter';
     return { errors };
-  } else if (!kerja_sama || kerja_sama === '') {
-    errors.kerja_sama = 'Kerja sama harus diisi';
+  } else if (!bentuk_kerjasama || bentuk_kerjasama === '') {
+    errors.bentuk_kerjasama = 'Kerja sama harus diisi';
     return { errors };
-  } else if (kerja_sama < 10 || kerja_sama === '') {
-    errors.kerja_sama = 'Kerja sama minimal memiliki 10 karakter.'
+  } else if (bentuk_kerjasama < 10 || bentuk_kerjasama === '') {
+    errors.bentuk_kerjasama = 'Kerja sama minimal memiliki 10 karakter.'
     return { errors };
-  } else if (!cp || cp === '') {
+  } else if (!contact_person || contact_person === '') {
     errors.contact_person = 'Contact Person harus diisi';
     return { errors }; 
-  } else if (cp.length < 11) {
+  } else if (contact_person.length < 11) {
     errors.contact_person = 'Contact Person minimal memiliki 11 karakter';
     return { errors };
   }
 
   return {
     brand: htmlspecialchars(brand),
-    kerja_sama: htmlspecialchars(kerja_sama),
-    contac_person: htmlspecialchars(cp),
+    bentuk_kerjasama: htmlspecialchars(bentuk_kerjasama),
+    contact_person: htmlspecialchars(contact_person),
   };
 }
 

@@ -13,7 +13,6 @@ const dashboard = async (req, res) => {
   const countInvitationDitolak = invitation.filter((inv) => inv.status === 'ditolak').length || 0;
 
   const sponsorship = await Sponsor.find({ user_id: userId });
-  console.log(sponsorship);
   const countSponsorTinjauan = sponsorship.filter((spo) => spo.status === 'tinjauan').length || 0;
   const countSponsorNegosiasi = sponsorship.filter((spo) => spo.status === 'negosiasi').length || 0;
   const countSponsorDiterima = sponsorship.filter((spo) => spo.status === 'diterima').length || 0;
