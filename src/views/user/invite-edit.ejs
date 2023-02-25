@@ -1,10 +1,10 @@
 <%- include('../partials/header') %> <%- include('../partials/navbar') %>
 
 
-<main class="w-full max-w-[1444px] mt-[60px] mx-auto">
-  <section class="w-full p-6 flex flex-col">
-    <h1 class="text-center font-bold text-2xl md:text-3xl my-5 text-green-700">
-      Buat Undangan
+<main class="w-full min-h-[100vh] max-w-[1444px] mt-[60px] mx-auto bg-midnight">
+  <section class="w-full min-h-[100vh] lg:w-max mx-auto p-6 flex flex-col bg-white">
+    <h1 class="text-center font-bold text-4xl md:text-5xl my-5 text-midnight">
+      Edit Undangan
     </h1>
     <p id="id_error" class="mt-1 text-center text-sm sm:text-base text-red-700"></p>
 
@@ -20,7 +20,7 @@
             type="text"
             id="tema"
             value="<%= invitation.tema %>"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="Kajian Isra Mi'raj, Berkah Ramadan ..."
             autofocus required
           />
@@ -35,8 +35,24 @@
           <input
             type="datetime-local"
             id="waktu"
-            value="<%= invitation.waktu %>"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            <%
+              const addZero = (time) => {
+                return time.toString().length === 1
+                ? '0' + time
+                : time;
+              };
+
+              const waktu = new Date(invitation.waktu);
+              const date =  addZero(waktu.getDate());
+              const month = addZero(waktu.getMonth());
+              const year = addZero(waktu.getFullYear());
+              const hour = addZero(waktu.getHours());
+              const minutes = addZero(waktu.getMinutes());
+
+              const waktuValue = `${year}-${month}-${date}T${hour}:${minutes}`;
+            %>
+            value="<%= waktuValue %>"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="Doe"
             required
           />
@@ -51,7 +67,7 @@
           <textarea
             type="text"
             id="lokasi"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="Masukkan alamat lengkap lokasi"
             required
           ><%= invitation.lokasi %></textarea>
@@ -66,7 +82,7 @@
           <textarea
             type="url"
             id="lokasi-map"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="https://www.google.com/maps/place/Bandung,+Kota+Bandung,+Jawa+Barat/..."
             required
           ><%= invitation.lokasi_map %></textarea>
@@ -82,7 +98,7 @@
             type="number"
             id="cp"
             value="<%= invitation.cp %>"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="08xxxxxxxxx"
             required
           />
@@ -98,7 +114,7 @@
             type="text"
             id="audience"
             value="<%= invitation.audience %>"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="Jamaah pengajian, Muda mudi, Aparat Pemerintah ..."
             required
           />
@@ -109,7 +125,7 @@
         type="submit"
         id="btn-submit"
         data-doc="<%= invitation.id %>"
-        class="block md:mx-auto text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm sm:text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+        class="block md:mx-auto text-white bg-rose hover:bg-rose focus:ring-4 focus:outline-none focus:ring-rose font-medium text-sm sm:text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-rose dark:hover:bg-rose dark:focus:ring-rose"
       >
         Ajukan Undangan
       </button>
@@ -130,11 +146,11 @@
 
     if ('on' in disable) {
       btnSubmit.classList.add('btn-disabled');
-      btnSubmit.classList.remove('hover:bg-green-800');
+      btnSubmit.classList.remove('hover:bg-rose');
       btnSubmit.setAttribute('disabled', '');
     } else {
       btnSubmit.classList.remove('btn-disabled');
-      btnSubmit.classList.add('hover:bg-green-800');
+      btnSubmit.classList.add('hover:bg-rose');
       btnSubmit.removeAttribute('disabled');
     }
   };
@@ -161,10 +177,22 @@
   
   const waktu = document.querySelector('#waktu');
   const waktuError = document.querySelector('#waktu_error');
+
+  // const addZero = (time) => {
+  //   return time.length === 1
+  //   ? '0' + time
+  //   : time;
+  // };
+
+  // const waktuData = new Date(<% invitation.waktu %>);
+  // const month = waktuData.getMonth();
+  // console.log(month.length);
   
   waktu.addEventListener('focusout', (e) => {
     const now = new Date();
     const input = new Date(e.target.value);
+
+    console.log(e.target.value);
 
     if (e.target.value === '') {
       waktuError.textContent = 'Waktu harus diisi';

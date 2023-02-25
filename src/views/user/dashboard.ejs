@@ -1,59 +1,59 @@
 <%- include('../partials/header') %>
 <%- include('../partials/navbar') %>
 
-  <main class="w-full max-w-[1444px] mt-[60px]">
-    <div class="w-full flex flex-wrap flex-col justify-center items-center md:flex-row gap-2 lg:gap-10">
-      <section class="w-full max-w-[350px] p-6 flex flex-col">
-        <h2 class="text-center font-bold text-xl my-5 text-green-700">Undangan Saya</h2>
-        <div class="w-full flex flex-wrap justify-between gap-3 text-center">
-          <div class="w-full flex-1 p-2 bg-blue-100 hover:bg-blue-500 hover:text-white border border-1 border-green-400 rounded-md transition-all duration-200">
-            <h3 class="text-sm sm:text-base">Tinjauan</h3>
-            <p class="text-sm sm:text-base">1</p>
-          </div>
-          <div class="w-full flex-1 p-2 bg-yellow-100 hover:bg-yellow-500 hover:text-white border border-1 border-green-400 rounded-md transition-all duration-200">
-            <h3 class="text-sm sm:text-base">Negosiasi</h3>
-            <p class="text-sm sm:text-base">1</p>
-          </div>
-          <div class="w-full flex-1 p-2 bg-red-100 hover:bg-red-500 hover:text-white border border-1 border-green-400 rounded-md transition-all duration-200">
-            <h3 class="text-sm sm:text-base">Ditolak</h3>
-            <p class="text-sm sm:text-base">1</p>
-          </div>
-          <div class="w-full flex-1 p-2 font-bold bg-green-500 hover:bg-green-100 text-white hover:text-black border border-1 border-green-400 rounded-md transition-all duration-200">
-            <h3 class="my-2 text-sm sm:text-base">Diterima</h3>
-            <p class="my-2">1</p>
-          </div>
-        </div>
-        <div class="flex justify-center mt-3">
-          <a href="/invite" class="py-2 px-5 bg-green-500 hover:bg-green-200 text-xs text-white hover:text-green-700 rounded-full transition-all duration-150">Lihat Undangan Saya</a>
-        </div>
-      </section>
-      <section class="w-full max-w-[350px] p-6 flex flex-col border-t-[1px] border-green-200">
-        <h2 class="text-center font-bold text-xl my-5 text-green-700">Sponsorship</h2>
-        <div class="w-full flex flex-wrap justify-between gap-3 text-center ">
-          <div class="w-full flex-1 p-2 bg-blue-100 hover:bg-blue-500 hover:text-white border border-1 border-green-400 rounded-md">
-            <h3 class="text-sm sm:text-base">Tinjauan</h3>
-            <p class="text-sm sm:text-base">1</p>
-          </div>
-          <div class="w-full flex-1 p-2 bg-yellow-100 hover:bg-yellow-500 hover:text-white border border-1 border-green-400 rounded-md transition-all duration-200">
-            <h3 class="text-sm sm:text-base">Negosiasi</h3>
-            <p class="text-sm sm:text-base">1</p>
-          </div>
-          <div class="w-full flex-1 p-2 bg-red-100 hover:bg-red-500 hover:text-white  border border-1 border-green-400 rounded-md transition-all duration-200">
-            <h3 class="text-sm sm:text-base">Ditolak</h3>
-            <p class="text-sm sm:text-base">1</p>
-          </div>
-          <div class="w-full flex-1 p-2 font-bold bg-green-500 hover:bg-green-100 text-white hover:text-black  border border-1 border-green-400 rounded-md transition-all duration-200">
-            <h3 class="my-2 text-sm sm:text-base">Diterima</h3>
-            <p class="my-2">1</p>
-          </div>
-        </div>
-        <div class="flex justify-center mt-3">
-          <button class="py-2 px-5 bg-green-500 hover:bg-green-200 text-xs text-white hover:text-green-700 rounded-full transition-all duration-150">Lihat Sponsorship Saya</button>
-        </div>
-      </section>
-      <section class="w-full h-full p-6 flex justify-center">
-        <div class="w-[310px] max-w-[650px] h-[110px] aspect-auto p-3 flex justify-center items-center text-center  bg-green-200 hover:bg-green-500 rounded-lg font-bold text-lg text-green-700 hover:text-white cursor-pointer transition-all duration-150">
+  <main class="relative w-full min-h-[100vh] max-w-[1444px] mt-[60px] pb-40 bg-midnight">
+    <div class="w-full flex flex-wrap flex-col justify-center items-center md:flex-row gap-2 lg:gap-10 md:px-12">
+      <section class="w-full h-full mt-8 flex justify-start bg-white bg-gradient-to-tr from-blue-200 to-orange-200 transition-all duration-300">
+        <a href="#" class="w-max h-max py-4 px-6 bg-rose text-white hover:text-rose hover:bg-gradient-to-tr hover:from-orange-200 hover:to-blue-50 hover:outline hover:outline-1 hover:outline-white">
           Lihat Jadwal Ust. Handy Bonny
+        </a>
+      </section>
+      <section class="relative w-full mt-1 py-4 px-6 bg-rose">
+        <div class="w-full flex flex-col md:flex-row md:justify-between items-start mb-5 md:px-10">
+          <h2 class="font-bold text-4xl lg:text-5xl text-white mb-5">Undangan Saya</h2>
+          <a href="/invite" class="block w-max py-2 px-5 bg-white text-midnight hover:bg-midnight hover:text-white hover:shadow-md transition-all duration-150">Lihat Undangan</a>
+        </div>
+        <div class="w-full px-5 flex flex-col items-center justify-center md:flex-row md:flex-wrap lg:justify-around gap-6 lg:-mb-16">
+          <div class="relative w-full md:w-[250px] h-[150px] bg-white hover:bg-gradient-to-br hover:from-orange-500 hover:to-blue-500 text-midnight hover:text-white hover:border-2 hover:border-white group">
+            <h3 class="absolute top-[10px] md:top-[20px] left-[10px] md:left-[20px] font-bold text-2xl group-hover:top-[25px] group-hover:left-[25px] transition-all duration-300">Tinjauan</h3>
+            <p class="absolute bottom-[10px] right-[10px] font-bold text-5xl group-hover:bottom-[25px] group-hover:right-[25px] transition-all duration-300"><%= invitation.tinjauan  %></p>
+          </div>
+          <div class="relative w-full md:w-[250px] h-[150px] bg-white hover:bg-gradient-to-br hover:from-orange-500 hover:to-blue-500 text-midnight hover:text-white hover:border-2 hover:border-white group">
+            <h3 class="absolute top-[10px] md:top-[20px] left-[10px] md:left-[20px] font-bold text-2xl group-hover:top-[25px] group-hover:left-[25px] transition-all duration-300">Negosiasi</h3>
+            <p class="absolute bottom-[10px] right-[10px] font-bold text-5xl group-hover:bottom-[25px] group-hover:right-[25px] transition-all duration-300"><%= invitation.negosiasi %></p>
+          </div>
+          <div class="relative w-full md:w-[250px] h-[150px] bg-white hover:bg-gradient-to-br hover:from-orange-500 hover:to-blue-500 text-midnight hover:text-white hover:border-2 hover:border-white group">
+            <h3 class="absolute top-[10px] md:top-[20px] left-[10px] md:left-[20px] font-bold text-2xl group-hover:top-[25px] group-hover:left-[25px] transition-all duration-300">Diterima</h3>
+            <p class="absolute bottom-[10px] right-[10px] font-bold text-5xl group-hover:bottom-[25px] group-hover:right-[25px] transition-all duration-300"><%= invitation.diterima %></p>
+          </div>
+          <div class="relative w-full md:w-[250px] h-[150px] bg-white hover:bg-gradient-to-br hover:from-orange-500 hover:to-blue-500 text-midnight hover:text-white hover:border-2 hover:border-white group">
+            <h3 class="absolute top-[10px] md:top-[20px] left-[10px] md:left-[20px] font-bold text-2xl group-hover:top-[25px] group-hover:left-[25px] transition-all duration-300">Ditolak</h3>
+            <p class="absolute bottom-[10px] right-[10px] font-bold text-5xl group-hover:bottom-[25px] group-hover:right-[25px] transition-all duration-300"><%= invitation.ditolak %></p>
+          </div>
+        </div>
+      </section>
+      <section class="relative w-full mt-20 py-4 px-6 bg-rose">
+        <div class="w-full flex flex-col md:flex-row md:justify-between items-start mb-5 md:px-10">
+          <h2 class="font-bold text-4xl lg:text-5xl text-white mb-5">Sponsorship</h2>
+          <a href="/sponsor" class="block w-max py-2 px-5 bg-white text-midnight hover:bg-midnight hover:text-white hover:shadow-md transition-all duration-150">Lihat Sponsorship</a>
+        </div>
+        <div class="w-full px-5 flex flex-col items-center justify-center md:flex-row md:flex-wrap lg:justify-around gap-6 lg:-mb-16">
+          <div class="relative w-full md:w-[250px] h-[150px] bg-white hover:bg-gradient-to-br hover:from-orange-500 hover:to-blue-500 text-midnight hover:text-white hover:border-2 hover:border-white group">
+            <h3 class="absolute top-[10px] md:top-[20px] left-[10px] md:left-[20px] font-bold text-2xl group-hover:top-[25px] group-hover:left-[25px] transition-all duration-300">Tinjauan</h3>
+            <p class="absolute bottom-[10px] right-[10px] font-bold text-5xl group-hover:bottom-[25px] group-hover:right-[25px] transition-all duration-300">1</p>
+          </div>
+          <div class="relative w-full md:w-[250px] h-[150px] bg-white hover:bg-gradient-to-br hover:from-orange-500 hover:to-blue-500 text-midnight hover:text-white hover:border-2 hover:border-white group">
+            <h3 class="absolute top-[10px] md:top-[20px] left-[10px] md:left-[20px] font-bold text-2xl group-hover:top-[25px] group-hover:left-[25px] transition-all duration-300">Negosias</h3>
+            <p class="absolute bottom-[10px] right-[10px] font-bold text-5xl group-hover:bottom-[25px] group-hover:right-[25px] transition-all duration-300">1</p>
+          </div>
+          <div class="relative w-full md:w-[250px] h-[150px] bg-white hover:bg-gradient-to-br hover:from-orange-500 hover:to-blue-500 text-midnight hover:text-white hover:border-2 hover:border-white group">
+            <h3 class="absolute top-[10px] md:top-[20px] left-[10px] md:left-[20px] font-bold text-2xl group-hover:top-[25px] group-hover:left-[25px] transition-all duration-300">Diterima</h3>
+            <p class="absolute bottom-[10px] right-[10px] font-bold text-5xl group-hover:bottom-[25px] group-hover:right-[25px] transition-all duration-300">1</p>
+          </div>
+          <div class="relative w-full md:w-[250px] h-[150px] bg-white hover:bg-gradient-to-br hover:from-orange-500 hover:to-blue-500 text-midnight hover:text-white hover:border-2 hover:border-white group">
+            <h3 class="absolute top-[10px] md:top-[20px] left-[10px] md:left-[20px] font-bold text-2xl group-hover:top-[25px] group-hover:left-[25px] transition-all duration-300">Ditolak</h3>
+            <p class="absolute bottom-[10px] right-[10px] font-bold text-5xl group-hover:bottom-[25px] group-hover:right-[25px] transition-all duration-300">1</p>
+          </div>
         </div>
       </section>
     </div>

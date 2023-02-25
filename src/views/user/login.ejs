@@ -1,63 +1,65 @@
 <%- include('../partials/header') %>
 
-<main class="w-full py-10 px-5 sm:flex sm:flex-col sm:items-center">
-  <h1 class="block my-5 font-bold text-center text-xl text-green-600">Login</h1>
-
-  <form class="w-full sm:w-[50%] lg:max-w-[500px]">
-    <div class="mb-6">
-      <label
-        for="username"
-        class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
-        >Username / Email</label
-      >
-      <input
-        type="text"
-        id="username"
-        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 dark:shadow-sm-light"
-        name="username"
-        autofocus required
-      />
-      <div id="username_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
-    </div>
-    <div class="relative mb-6">
-      <label
-        for="password"
-        class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
-        >Password</label
-      >
-      <input
-        type="password"
-        id="password"
-        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 dark:shadow-sm-light"
-        name="password"
-        required
-      />
-      <button
-        type="button"
-        class="eye absolute top-[40px] sm:top-[45px] right-[10px] w-5 h-5 text-gray-500 cursor-pointer"
-      >
-        <div class="eye-svg hidden pointer-events-none" name="eye">
-          <%- include('../svg/eye-solid') %>
-        </div>
-        <div class="eye-slash-svg pointer-events-none">
-          <%- include('../svg/eye-slash-solid') %>
-        </div>
-      </button>
-      <div id="password_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
-    </div>
-    <div class="w-full flex justify-center">
-      <button
-        type="submit"
-        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm sm:text-base px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        name="submit"
+<main class="w-full min-h-[100vh] sm:px-5 flex justify-center items-center bg-midnight">
+  <div class="w-full h-full sm:max-w-[500px] min-h-[100vh] flex flex-col items-center justify-center px-5 sm:px-12  bg-white">
+    <h1 class="block my-5 font-bold text-center text-3xl text-midnight">Login</h1>
+  
+    <form class="w-full lg:max-w-[500px]">
+      <div class="mb-6">
+        <label
+          for="username"
+          class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+          >Username / Email</label
         >
-        Masuk
-      </button>
+        <input
+          type="text"
+          id="username"
+          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose dark:shadow-sm-light"
+          name="username"
+          autofocus required
+        />
+        <div id="username_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+      </div>
+      <div class="relative mb-6">
+        <label
+          for="password"
+          class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+          >Password</label
+        >
+        <input
+          type="password"
+          id="password"
+          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose dark:shadow-sm-light"
+          name="password"
+          required
+        />
+        <button
+          type="button"
+          class="eye absolute top-[40px] sm:top-[45px] right-[10px] w-5 h-5 text-gray-500 cursor-pointer"
+        >
+          <div class="eye-svg hidden pointer-events-none" name="eye">
+            <%- include('../svg/eye-solid') %>
+          </div>
+          <div class="eye-slash-svg pointer-events-none">
+            <%- include('../svg/eye-slash-solid') %>
+          </div>
+        </button>
+        <div id="password_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+      </div>
+      <div class="w-full flex justify-center">
+        <button
+          type="submit"
+          class="text-white bg-rose hover:bg-rose focus:ring-4 focus:outline-none focus:ring-rose font-medium text-sm sm:text-base px-5 py-2.5 text-center dark:bg-rose dark:hover:bg-rose dark:focus:ring-rose"
+          name="submit"
+          >
+          Masuk
+        </button>
+      </div>
+    </form>
+  
+    <div class="w-full mt-7 text-center">
+      <p class="text-sm sm:text-base">Belum punya akun?</p><a href="/signup" class="text-sm sm:text-base text-rose">Buat akun di sini</a>
     </div>
-  </form>
-
-  <div class="w-full mt-7 text-center">
-    <p class="text-sm sm:text-base">Belum punya akun?</p><a href="/signup" class="text-sm sm:text-base text-green-600">Buat akun di sini</a>
   </div>
 </main>
 

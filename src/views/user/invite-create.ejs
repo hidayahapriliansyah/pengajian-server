@@ -1,8 +1,8 @@
 <%- include('../partials/header') %> <%- include('../partials/navbar') %>
 
-<main class="w-full max-w-[1444px] mt-[60px] mx-auto">
-  <section class="w-full p-6 flex flex-col">
-    <h1 class="text-center font-bold text-2xl md:text-3xl my-5 text-green-700">
+<main class="w-full min-h-[100vh] max-w-[1444px] mt-[60px] mx-auto bg-midnight">
+  <section class="w-full min-h-[100vh] lg:w-max mx-auto p-6 flex flex-col bg-white">
+    <h1 class="text-center font-bold text-4xl md:text-5xl my-5 text-midnight">
       Buat Undangan
     </h1>
 
@@ -17,11 +17,11 @@
           <input
             type="text"
             id="tema"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="Kajian Isra Mi'raj, Berkah Ramadan ..."
             autofocus required
           />
-          <div id="tema_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+          <div id="tema_error" class="w-full mt-1 text-sm sm:text-base text-red-700"></div>
         </div>
         <div class="md:max-w-[338px]">
           <label
@@ -32,7 +32,7 @@
           <input
             type="datetime-local"
             id="waktu"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="Doe"
             required
           />
@@ -47,7 +47,7 @@
           <textarea
             type="text"
             id="lokasi"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="Masukkan alamat lengkap lokasi"
             required
           ></textarea>
@@ -62,7 +62,7 @@
           <textarea
             type="url"
             id="lokasi-map"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="https://www.google.com/maps/place/Bandung,+Kota+Bandung,+Jawa+Barat/..."
             required
           ></textarea>
@@ -77,7 +77,7 @@
           <input
             type="number"
             id="cp"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="08xxxxxxxxx"
             required
           />
@@ -92,7 +92,7 @@
           <input
             type="text"
             id="audience"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
             placeholder="Jamaah pengajian, Muda mudi, Aparat Pemerintah ..."
             required
           />
@@ -102,7 +102,7 @@
       <button
         type="submit"
         id="btn-submit"
-        class="block md:mx-auto text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm sm:text-base w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+        class="block md:mx-auto text-white bg-midnight hover:bg-blue-700 hover:shadow-lg font-medium text-sm sm:text-base w-full sm:w-auto px-5 py-2.5 text-center"
       >
         Ajukan Undangan
       </button>
@@ -123,11 +123,11 @@
 
     if ('on' in disable) {
       btnSubmit.classList.add('btn-disabled');
-      btnSubmit.classList.remove('hover:bg-green-800');
+      btnSubmit.classList.remove('hover:bg-blue-700');
       btnSubmit.setAttribute('disabled', '');
     } else {
       btnSubmit.classList.remove('btn-disabled');
-      btnSubmit.classList.add('hover:bg-green-800');
+      btnSubmit.classList.add('hover:bg-blue-700');
       btnSubmit.removeAttribute('disabled');
     }
   };
@@ -174,6 +174,15 @@
   lokasi.addEventListener('keyup', (e) => {
     if (e.target.value.length < 20) {
       lokasiError.textContent = 'Lokasi minimal memiliki 20 karakter. Mohon isi alamat dengan lengkap.'
+    } else {
+      lokasiError.textContent = '';
+    }
+    disableBtn();
+  });
+  
+  lokasi.addEventListener('focusout', (e) => {
+    if (e.target.value === '') {
+      lokasiError.textContent = 'Lokasi harus diisi.'
     } else {
       lokasiError.textContent = '';
     }

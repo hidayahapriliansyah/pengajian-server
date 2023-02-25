@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import htmlspecialchars from 'htmlspecialchars';
+import moment from 'moment-timezone';
 
 import User from '../../models/User.js';
 import Invitation from '../../models/Invitation.js';
@@ -56,10 +57,38 @@ const makeInvitationDocument = (invitation, timeraw) => {
   const waktuFormatted = `${day}, ${date} ${month} ${year}. ${hour}:${minute}`;
 
   if (timeraw === 'timeraw') {
+    const waktuTz = moment.tz(inv.waktu, process.env.TIMEZONE);
+    const dateLocal = waktuTz.toDate();
+    console.log('dateLocal', dateLocal);
+
     return {
       id: inv._id,
       tema: inv.tema,
       waktu: inv.waktu,
+      lokasi: inv.lokasi,
+      lokasi_map: inv.lokasi_map,
+      audience: inv.audience,
+      cp: inv.contact_person,
+      status: inv.status,
+    }
+  }
+  
+
+  if (timeraw === 'datetimelocal') {
+    let waktuDateTimeLocal = '';
+
+    const addZero = (time) => {
+      return time.lenght === 1
+      ? ('0' + time)
+      : time; 
+    };
+
+    waktuDateTimeLocal = `${year}-${bulan}-${tgl}T${jam}:${minute}`;
+    
+    return {
+      id: inv._id,
+      tema: inv.tema,
+      waktu: waktuLocal,
       lokasi: inv.lokasi,
       lokasi_map: inv.lokasi_map,
       audience: inv.audience,
@@ -83,23 +112,18 @@ const makeInvitationDocument = (invitation, timeraw) => {
 const invite_get = async (req, res) => {
   try {
     const user = await auth.userAuth(req, res);
-    if (user instanceof Error) {
-      throw user;
-    }
     if (user) {
       const invitations = await Invitation.find({ user_id: user._id });
       const invitationsColl = makeInvitationCollection(invitations);
       res.render('user/invite', { title: 'Undangan', invitations: invitationsColl, endpoint: process.env.API_ENDPOINT });
     } else {
-      res.status(403).json({ status: 'fail', message: 'User is invalid' });
+      return res.redirect('login');
     }
   } catch (err) {
     if (err.message === 'User is invalid') {
       res.redirect('/login');
       return;
     }
-
-    res.status(500).json({ status: 'fail', message: err });
   }
 };
 
@@ -157,19 +181,9 @@ const invite_post = async (req, res) => {
 };
 
 const invite_create_get = async (req, res) => {
-  try {
-    const user = await auth.userAuth(req, res);
-    if (user instanceof Error) {
-      throw user;
-    }
+  const user = await auth.userAuth(req, res);
+  if (user) {
     res.render('user/invite-create', { title: 'Ajukan Undangan', endpoint: process.env.API_ENDPOINT });
-  } catch (err) {
-    if (err.message === 'User is invalid') {
-      res.redirect('/login');
-      return;
-    }
-
-    res.status(500).json({ status: 'fail', message: 'error' });
   }
 };
 
@@ -208,15 +222,14 @@ const invite_edit_get = async (req, res) => {
 
   try {
     const user = await auth.userAuth(req, res);
-    if (user instanceof Error) {
-      throw user;
-    }
-    const invitation = await Invitation.findOne({ _id: id, user_id: user._id });
-    if (invitation) {
-      const invitationDoc = makeInvitationDocument(invitation, 'timeraw');
-      res.render('user/invite-edit', { title: 'Edit Undangan', invitation: invitationDoc, endpoint: process.env.API_ENDPOINT });
-    } else {
-      return res.render('user/404', { title: '404' });
+    if (user) {
+      const invitation = await Invitation.findOne({ _id: id, user_id: user._id });
+      if (invitation) {
+        const invitationDoc = makeInvitationDocument(invitation, 'timeraw');
+        res.render('user/invite-edit', { title: 'Edit Undangan', invitation: invitationDoc, endpoint: process.env.API_ENDPOINT });
+      } else {
+        return res.render('user/404', { title: '404' });
+      }
     }
   } catch (err) {
     if (err.message === 'User is invalid') {

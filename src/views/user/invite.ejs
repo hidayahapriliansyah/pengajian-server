@@ -1,36 +1,36 @@
 <%- include('../partials/header') %>
 <%- include('../partials/navbar') %>
 
-<main class="w-full max-w-[1444px] mt-[60px] mx-auto">
+<main class="w-full max-w-[1444px] min-h-[100vh] mt-[60px] mx-auto bg-midnight">
   <section class="w-full p-6 flex flex-col">
-    <h1 class="text-center font-bold text-3xl my-5 text-green-700">
+    <h1 class="text-center font-bold text-4xl my-5 text-white">
       Undangan Saya
     </h1>
 
     <div class="w-full flex flex-row gap-3 justify-center items-center mx-auto mb-4">
-      <a href="/invite/create" id="dropdownDelayButton" data-dropdown-toggle="dropdownDelay" data-dropdown-delay="500" data-dropdown-trigger="hover" class="w-[44px] h-[44px] text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">
+      <a href="/invite/create" id="dropdownDelayButton" data-dropdown-toggle="dropdownDelay" data-dropdown-delay="500" data-dropdown-trigger="hover" class="w-[44px] h-[44px] text-white bg-rose hover:bg-rose focus:ring-4 focus:outline-none focus:ring-rose font-medium rounded-full text-sm p-3 text-center inline-flex" type="button">
         <%- include('../svg/plus') %>
       </a>
       <!-- Dropdown menu -->
-      <div id="dropdownDelay" class="z-10 hidden p-4 bg-green-50 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-        <p class="font-bold text-green-500">Ajukan Undangan</p>
+      <div id="dropdownDelay" class="z-10 hidden p-4 bg-rose divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <p class="font-bold text-white">Ajukan Undangan</p>
       </div>
-      <button id="all" class="w-min h-min py-1 px-3 bg-green-500 border border-1 border-green-500 text-sm sm:text-base text-white rounded-full">Semua</button>
+      <button id="all" class="w-min h-min py-1 px-3 bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Semua</button>
 
       <div id="btn-filter-group" class="w-max px-1 hidden md:flex md:flex-row md:gap-3">
-        <button class="tinjauan-btn w-min h-min py-1 px-3 hover:bg-green-100 border border-1 border-green-500 text-sm sm:text-base text-green-800 rounded-full">Tinjauan</button>
-        <button class="negosiasi-btn w-min h-min py-1 px-3 hover:bg-green-100 border border-1 border-green-500 text-sm sm:text-base text-green-800 rounded-full">Negosiasi</button>
-        <button class="diterima-btn w-min h-min py-1 px-3 hover:bg-green-100 border border-1 border-green-500 text-sm sm:text-base text-green-800 rounded-full">Diterima</button>
-        <button class="ditolak-btn w-min h-min py-1 px-3 hover:bg-green-100 border border-1 border-green-500 text-sm sm:text-base text-green-800 rounded-full">Ditolak</button>
+        <button class="tinjauan-btn w-min h-min py-1 px-3 hover:bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Tinjauan</button>
+        <button class="negosiasi-btn w-min h-min py-1 px-3 hover:bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Negosiasi</button>
+        <button class="diterima-btn w-min h-min py-1 px-3 hover:bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Diterima</button>
+        <button class="ditolak-btn w-min h-min py-1 px-3 hover:bg-rose border border-1 border-rose text-sm sm:text-base text-white rounded-full">Ditolak</button>
       </div>
 
       <div class="block md:hidden">
-        <button id="dropdown-btn" data-dropdown-toggle="dropdown" class="text-green-800 bg-white-500 border border-1 border-green-500 hover:bg-green-100 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm sm:text-base px-3 py-1 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button"><p>Filter</p>
+        <button id="dropdown-btn" data-dropdown-toggle="dropdown" class="text-white bg-white-500 border border-1 focus:ring-4 focus:outline-none  font-medium rounded-full text-sm sm:text-base px-3 py-1 text-center inline-flex items-center" type="button"><p>Filter</p>
           <%- include('../svg/dropdown-downarrow') %>
         </button>
         <!-- Dropdown menu -->
         <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-            <ul class="py-2 text-sm sm:text-base text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+            <ul class="py-2 text-sm sm:text-base text-midnight" aria-labelledby="dropdownDefaultButton">
               <li>
                 <button id="tinjauan-filter" class="tinjauan-btn w-full block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tinjauan</button>
               </li>
@@ -49,7 +49,7 @@
 
     </div>
   
-    <div id="table-position" class="relative w-full lg:max-w-[1200px] md:max-w-[800px] mx-auto overflow-x-auto shadow-md sm:rounded-lg">
+    <div id="table-position" class="relative w-full lg:max-w-[1200px] md:max-w-[800px] mx-auto overflow-x-auto shadow-md sm:rounded-lg bg-white">
 
     </div>
 
@@ -65,17 +65,17 @@
   filterMenus.forEach((el) => {
     el.addEventListener('click', () => {
       dropdownFilterBtnP.textContent = el.textContent;
-      dropdownFilterBtn.classList.add('bg-green-500', 'hover:bg-green-800', 'text-white');
-      allFilterBtn.classList.remove('bg-green-500', 'text-white');
+      dropdownFilterBtn.classList.add('bg-rose', 'hover:bg-rose');
+      allFilterBtn.classList.remove('bg-rose');
     });
   });
   
   allFilterBtn.addEventListener('click', () => {
-    dropdownFilterBtn.classList.remove('bg-green-500', 'hover:bg-green-800', 'text-white');
+    dropdownFilterBtn.classList.remove('bg-rose', 'hover:bg-rose');
     dropdownFilterBtnP.textContent = 'Filter';
-    allFilterBtn.classList.add('bg-green-500', 'text-white');
+    allFilterBtn.classList.add('bg-rose');
     btnFilterGroup.forEach((btn) => {
-      btn.classList.remove('bg-green-500', 'hover:bg-green-800', 'text-white');
+      btn.classList.remove('bg-rose', 'hover:bg-rose');
     });
   });
   
@@ -83,15 +83,15 @@
   btnFilterGroup.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       btnFilterGroup.forEach((editBtn) => {
-        editBtn.classList.remove('bg-green-500', 'hover:bg-green-800', 'text-white');
-        allFilterBtn.classList.remove('bg-green-500', 'text-white');
+        editBtn.classList.remove('bg-rose', 'hover:bg-rose');
+        allFilterBtn.classList.remove('bg-rose');
       });
-      e.target.classList.add('bg-green-500', 'hover:bg-green-800', 'text-white');
+      e.target.classList.add('bg-rose', 'hover:bg-rose');
     });
   });
 
   const tablePosition = document.querySelector('#table-position');
-  <% if (invitations) { %>
+  <% if (invitations.length !== 0) { %>
     const data = <%- JSON.stringify(invitations) %>;
   
     const renderTable = (data) => {
@@ -119,10 +119,10 @@
                 <td class="px-6 py-4 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">${d.lokasi}</td>
                 <td class="px-6 py-4">${d.status.toUpperCase()}</td>
                 <td class="px-6 py-4 flex flex-row items-center gap-1 whitespace-nowrap">
-                  <a href="/invite/${d.id}" title="Detail" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                  <a href="/invite/${d.id}" title="Detail" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
                     <%- include('../svg/eye-solid.ejs') %>
                   </a>
-                  <a href="/invite/${d.id}/edit" title="Edit" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                  <a href="/invite/${d.id}/edit" title="Edit" data-doc="${d.id}" class="w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
                     <%- include('../svg/pen.ejs') %>
                   </a>
                   <button href="#" title="Hapus" data-doc="${d.id}"
@@ -130,7 +130,7 @@
                     data-doc="${d.id}"
                     data-modal-target="popup-modal"
                     data-modal-toggle="popup-modal"
-                    class="btn-option-delete w-[35px] h-[35px] flex items-center p-2 bg-green-100 hover:bg-green-400 text-green-500 hover:text-white rounded-xl transition-all duration-150">
+                    class="btn-option-delete w-[35px] h-[35px] flex items-center p-2 bg-blue-100 hover:bg-midnight text-midnight hover:text-white rounded-xl transition-all duration-150">
                     <%- include('../svg/trash.ejs') %>
                   </button>
                 </td>

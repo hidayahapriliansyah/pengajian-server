@@ -1,14 +1,12 @@
 import Sponsor from '../../models/Sponsor.js';
+import * as auth from '../../auth/index.js';
 
 const sponsor_get = async (req, res) => {
-  // TODO 
-  // send data all sponsorship and send to view
-
-  try {
-    const sponsor = await Sponsor.find({ user_id: '63eda20dd8da687c892116bb' });
-    res.status(200).json({ status: 'ok', sponsor });
-  } catch (err) {
-    console.log(err);
+  const user = await auth.userAuth(req, res);
+  if (user) {
+    const userId = user._id;
+    const sponsors = await Sponsor.find({ user_id: userId });
+    res.render('user/sponsor',{ status: 'ok', sponsors });
   }
 };
 
