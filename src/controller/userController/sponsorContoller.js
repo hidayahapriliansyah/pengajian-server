@@ -1,5 +1,10 @@
+import dotenv from 'dotenv';
+
 import Sponsor from '../../models/Sponsor.js';
 import * as auth from '../../auth/index.js';
+import { sponsorPayloadValidation } from '../../handlers/errorHandler.js';
+
+dotenv.config();
 
 const sponsor_get = async (req, res) => {
   const user = await auth.userAuth(req, res);
@@ -32,12 +37,29 @@ const sponsor_edit_get = (req, res) => {
 };
 
 const sponsor_create_get = (req, res) => {
-  res.send('Send To sponsor create view')
+  res.render('user/sponsor-create', { title: 'Ajukan Undangan', endpoint: process.env.API_ENDPOINT});
 };
 
 const sponsor_post = async (req, res) => {
+  const user = await auth.userAuth(req, res);
+
+  const {
+    brand: brand,
+    kerjaSama: kerja_sama,
+    contactPerson: cp,
+  } = req.body;
+
+  // sponsor input validation
+  const payloadValidation = sponsorPayloadValidation({ brand, kerja_sama, cp, });
+  if (payloadValidation.errors) {
+    const errors = payloadValidation;
+    return res.status('404').json({ status: 'fail', errors });
+  }
+
+  payloadValidation.user_id = user._id;
+
   try {
-    const sponsor = await Sponsor.create(req.body);
+    const sponsor = await Sponsor.create(payloadValidation);
     res.status(201).json({ status: 'ok', sponsor });
   } catch (err) {
     console.log(err);

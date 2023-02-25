@@ -1,3 +1,5 @@
+import htmlspecialchars from 'htmlspecialchars';
+
 const signupError = (err) => {
   let errors = {};
 
@@ -142,50 +144,91 @@ const invatationPayloadValidation = ({
 
   if (!tema || tema === '') {
     errors.tema = 'Tema harus diisi';
-    return errors;
+    return  { errors };
   } else if (!lokasi || lokasi === '') {
     errors.lokasi = 'Lokasi harus diisi';
-    return errors;
+    return { errors };
   } else if (!lokasi_map || lokasi_map === '') {
     errors.lokasi_map = 'Link lokasi harus diisi';
-    return errors;
+    return { errors };
   } else if (!waktu || waktu === '') {
     errors.waktu = 'Waktu harus diisi';
-    return errors;
+    return { errors };
   } else if (!audience || audience === '') {
     errors.audience = 'Audience harus diisi';
-    return errors;
+    return { errors };
   } else if (!contact_person || contact_person === '') {
     errors.contact_person = 'Contact person harus diisi';
-    return errors;
+    return { errors };
   }
 
   if (tema.length < 5) {
     errors.tema = 'Tema minimal memiliki 5 karakter';
-    return errors;
+    return { errors };
   }
 
   if (lokasi.length < 20) {
     errors.lokasi = 'Lokasi minimal memiliki 20 karakter. Mohon isi alamat dengan lengkap.'
-    return errors;
+    return { errors };
   }
 
   if (contact_person.length < 11) {
     errors.contact_person = 'Contact Person minimal memiliki 11 karakter';
-    return errors;
+    return { errors };
   }
 
   if (audience.length < 5) {
     errors.audience = 'Audience minimal memiliki 5 karakter';
-    return errors;
+    return { errors };
   }
 
-  return null;
+  return {
+    tema: htmlspecialchars(tema),
+    lokasi: htmlspecialchars(lokasi),
+    lokasi_map: htmlspecialchars(lokasi_map),
+    waktu: htmlspecialchars(waktu),
+    audience: htmlspecialchars(audience),
+    contact_person: htmlspecialchars(contact_person),
+  };
 };
+
+const sponsorPayloadValidation = ({
+  brand, kerja_sama, cp,
+}) => {
+
+  let errors = {};
+
+  if (!brand || brand === '') {
+    errors.brand = 'Brand harus diisi';
+    return { errors };
+  } else if (brand.length < 3) {
+    errors.brand = 'Brand minimal memiliki 3 karakter';
+    return { errors };
+  } else if (!kerja_sama || kerja_sama === '') {
+    errors.kerja_sama = 'Kerja sama harus diisi';
+    return { errors };
+  } else if (kerja_sama < 10 || kerja_sama === '') {
+    errors.kerja_sama = 'Kerja sama minimal memiliki 10 karakter.'
+    return { errors };
+  } else if (!cp || cp === '') {
+    errors.contact_person = 'Contact Person harus diisi';
+    return { errors }; 
+  } else if (cp.length < 11) {
+    errors.contact_person = 'Contact Person minimal memiliki 11 karakter';
+    return { errors };
+  }
+
+  return {
+    brand: htmlspecialchars(brand),
+    kerja_sama: htmlspecialchars(kerja_sama),
+    contac_person: htmlspecialchars(cp),
+  };
+}
 
 export {
   signupError,
   signupPayloadValidation,
   invitationError,
   invatationPayloadValidation,
+  sponsorPayloadValidation,
 };

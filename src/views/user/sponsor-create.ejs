@@ -1,0 +1,184 @@
+<%- include('../partials/header') %> <%- include('../partials/navbar') %>
+
+<main class="w-full min-h-[100vh] max-w-[1444px] mt-[60px] mx-auto bg-midnight">
+  <section class="w-full min-h-[100vh] lg:w-max mx-auto p-6 flex flex-col bg-white">
+    <h1 class="text-center font-bold text-4xl md:text-5xl my-5 text-midnight">
+      Buat Ajuan Sponsorship
+    </h1>
+
+    <form class="md:min-w-[700px] md:max-w-[800px] md:mx-auto">
+      <div class="flex flex-col gap-3 mb-6">
+        <div class="w-full md:px-24">
+          <label
+            for="brand"
+            class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+            >Brand <span class="text-red-600">*</span></label
+          >
+          <input
+            type="text"
+            id="brand"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
+            autofocus required
+          />
+          <div id="brand_error" class="w-full mt-1 text-sm sm:text-base text-red-700"></div>
+        </div>
+        <div class="w-full md:px-24">
+          <label
+            for="kerja-sama"
+            class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+            >Bentuk Kerja Sama <span class="text-red-600">*</span></label
+          >
+          <textarea
+            type="text"
+            id="kerja-sama"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
+            required
+          ></textarea>
+          <div id="kerja-sama_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+        </div>
+      </div>
+      <div class="w-full md:px-24 mb-5">
+        <label
+          for="cp"
+          class="block mb-2 text-sm sm:text-base font-medium text-gray-900 dark:text-white"
+          >No. Hp. / WA yang dapat dihubungi <span class="text-red-600">*</span></label
+        >
+        <input
+          type="number"
+          id="cp"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm sm:text-base focus:ring-rose focus:border-rose block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rose dark:focus:border-rose"
+          placeholder="08xxxxxxxxx"
+          required
+        />
+        <div id="cp_error" class="mt-1 text-sm sm:text-base text-red-700"></div>
+      </div>
+      <button
+        type="submit"
+        id="btn-submit"
+        class="block md:mx-auto text-white bg-midnight hover:bg-blue-700 hover:shadow-lg font-medium text-sm sm:text-base w-full sm:w-auto px-5 py-2.5 text-center"
+      >
+        Ajukan Sponsorship
+      </button>
+    </form>
+  </section>
+</main>
+
+<script>
+  const disableBtn = () => {
+    const elementErr = document.querySelectorAll('[id$="error"]');
+    const btnSubmit = document.querySelector('#btn-submit');
+    const disable = {};
+    elementErr.forEach((el) => {
+      if (el.textContent !== '') {
+        disable.on = true;
+      }
+    });
+
+    if ('on' in disable) {
+      btnSubmit.classList.add('btn-disabled');
+      btnSubmit.classList.remove('hover:bg-blue-700');
+      btnSubmit.setAttribute('disabled', '');
+    } else {
+      btnSubmit.classList.remove('btn-disabled');
+      btnSubmit.classList.add('hover:bg-blue-700');
+      btnSubmit.removeAttribute('disabled');
+    }
+  };
+
+  const brand = document.querySelector('#brand');
+  const brandError = document.querySelector('#brand_error');
+  brand.addEventListener('keyup', (e) => {
+    if (e.target.value.length < 3) {
+      brandError.textContent = 'Brand minimal memiliki 3 karakter';
+    } else {
+      brandError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  brand.addEventListener('focusout', (e) => {
+    if (e.target.value === '') {
+      brandError.textContent = 'Brand harus diisi';
+    } else {
+      brandError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  const kerjaSama = document.querySelector('#kerja-sama');
+  const kerjaSamaError = document.querySelector('#kerja-sama_error');
+  kerjaSama.addEventListener('keyup', (e) => {
+    if (e.target.value.length < 10) {
+      kerjaSamaError.textContent = 'Kerja sama minimal memiliki 10 karakter.'
+    } else {
+      kerjaSamaError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  kerjaSama.addEventListener('focusout', (e) => {
+    if (e.target.value === '') {
+      kerjaSamaError.textContent = 'Kerja sama harus diisi.'
+    } else {
+      kerjaSamaError.textContent = '';
+    }
+    disableBtn();
+  });
+
+  const cp = document.querySelector('#cp');
+  const cpError = document.querySelector('#cp_error');
+  cp.addEventListener('keyup', (e) => {
+    if (e.target.value.length === 0) {
+      cpError.textContent = 'Contact Person harus diisi';
+    } else if (e.target.value.length < 11) {
+      cpError.textContent = 'Contact Person minimal memiliki 11 karakter';
+    } else {
+      cpError.textContent = '';
+    }
+  });
+
+  cp.addEventListener('focusout', (e) => {
+    if (e.target.value === '') {
+      cpError.textContent = 'Contact Person harus diisi';
+    } else {
+      cpError.textContent = '';
+    }
+    disableBtn();
+  });
+  
+  const form = document.querySelector('form');
+  form.addEventListener('submit',async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      brand : brand.value, 
+      kerjaSama: kerjaSama.value,
+      contactPerson: cp.value,
+    };
+
+    try {
+      const response = await fetch(`<%= endpoint %>/sponsor`, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json', },
+      });
+
+      const data = await response.json();
+
+      if (data.sponsor) {
+        location.assign('/sponsor');
+      }
+
+      if (data.errors) {
+        brandError.textContent = brand.errors.brand || null;
+        kerjaSamaError.textContent = data.errors.kerja_sama || null;
+        cpError.textContent = data.errors.contact_person || null;
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+</script>
+<%- include('../partials/footer') %>

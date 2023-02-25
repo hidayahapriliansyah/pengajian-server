@@ -1744,6 +1744,11 @@ input[type="range"]::-ms-fill-lower{
   background-color: rgb(30 62 114 / var(--tw-bg-opacity));
 }
 
+.bg-red-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 82 82 / var(--tw-bg-opacity));
+}
+
 .bg-red-600{
   --tw-bg-opacity: 1;
   background-color: rgb(224 36 36 / var(--tw-bg-opacity));
@@ -1880,6 +1885,11 @@ input[type="range"]::-ms-fill-lower{
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.px-12{
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .pb-40{
@@ -2207,11 +2217,6 @@ input[type="range"]::-ms-fill-lower{
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-.hover\:bg-black:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-blue-700:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(26 86 219 / var(--tw-bg-opacity));
@@ -2257,41 +2262,17 @@ input[type="range"]::-ms-fill-lower{
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-gradient-to-tr:hover{
-  background-image: linear-gradient(to top right, var(--tw-gradient-stops));
-}
-
-.hover\:bg-gradient-to-r:hover{
-  background-image: linear-gradient(to right, var(--tw-gradient-stops));
-}
-
-.hover\:bg-gradient-to-t:hover{
-  background-image: linear-gradient(to top, var(--tw-gradient-stops));
-}
-
-.hover\:bg-gradient-to-b:hover{
-  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-}
-
 .hover\:bg-gradient-to-br:hover{
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.hover\:bg-gradient-to-tr:hover{
+  background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }
 
 .hover\:from-orange-200:hover{
   --tw-gradient-from: #FCD9BD;
   --tw-gradient-to: rgb(252 217 189 / 0);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.hover\:from-blue-200:hover{
-  --tw-gradient-from: #C3DDFD;
-  --tw-gradient-to: rgb(195 221 253 / 0);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.hover\:from-orange-300:hover{
-  --tw-gradient-from: #FDBA8C;
-  --tw-gradient-to: rgb(253 186 140 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -2303,14 +2284,6 @@ input[type="range"]::-ms-fill-lower{
 
 .hover\:to-blue-50:hover{
   --tw-gradient-to: #EBF5FF;
-}
-
-.hover\:to-orange-300:hover{
-  --tw-gradient-to: #FDBA8C;
-}
-
-.hover\:to-blue-300:hover{
-  --tw-gradient-to: #A4CAFE;
 }
 
 .hover\:to-blue-500:hover{
@@ -2969,6 +2942,11 @@ input[type="range"]::-ms-fill-lower{
   .md\:px-12{
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  .md\:px-24{
+    padding-left: 6rem;
+    padding-right: 6rem;
   }
 
   .md\:text-3xl{

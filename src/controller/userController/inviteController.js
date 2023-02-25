@@ -128,6 +128,8 @@ const invite_get = async (req, res) => {
 };
 
 const invite_post = async (req, res) => {
+  const user = await auth.userAuth(req, res);
+
   const {
     tema,
     lokasi,
@@ -141,29 +143,16 @@ const invite_post = async (req, res) => {
     tema, lokasi, lokasi_map, waktu, audience, contact_person, waktu,
   });
 
-  if (payloadValidation) {
-    res.status(400).json({ status: 'fail', errors: payloadValidation });
+  if (payloadValidation.errors) {
+    const errors = payloadValidation;
+    res.status(400).json({ status: 'fail', errors });
     return;
   };
 
   try {
-    const user = await auth.userAuth(req, res);
-    if (user instanceof Error) {
-      throw user;
-    }
+    payloadValidation.user_id = user._id;
 
-    const user_id = user._id;
-    const payload = {
-      user_id,
-      tema: htmlspecialchars(tema),
-      lokasi: htmlspecialchars(lokasi),
-      lokasi_map: htmlspecialchars(lokasi_map),
-      waktu: htmlspecialchars(waktu),
-      audience: htmlspecialchars(audience),
-      contact_person: htmlspecialchars(contact_person),
-    }
-
-    const invitation = await Invitation.create(payload);
+    const invitation = await Invitation.create(payloadValidation);
     res.status(201).json({ status: 'ok', invitation: invitation._id });
   } catch (err) {
     if (err.message === 'User is invalid') {

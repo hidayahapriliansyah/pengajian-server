@@ -49,9 +49,9 @@
               </ul>
               <% if (user) { %> 
                 <!-- Syntak yg di komen di bawah adalah button profile, bisa digunakan ketika user sudah login -->
-                <a href="#">
+                <a href="/dashboard">
                   <div class="button-profil">
-                    <span>Muhamad Rafli</span>
+                    <span>Halo, <%= user.nama_panggilan %></span>
                     <div class="icon-social-media">
                       <ion-icon name="person"></ion-icon>
                     </div>
