@@ -36,4 +36,6 @@ router.get('/notifications', userController.usernotifitacation_get);
 router.post('/notifications', userController.usernotification_post);
 router.patch('/notifications/:id', userController.usernotification_patch);
 
+router.get('/logout', userController.logout_get);
+
 export default router;

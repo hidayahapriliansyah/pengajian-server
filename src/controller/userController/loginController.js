@@ -39,7 +39,13 @@ const login_post = async (req, res) => {
   };
 };
 
+const logout_get = (req, res) => {
+  res.cookie(process.env.COOKIE_NAME, 'logout', { httpOnly: true, maxAge: 1 });
+  res.redirect('/login');
+};
+
 export {
   login_get,
   login_post,
+  logout_get,
 };
