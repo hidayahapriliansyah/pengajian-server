@@ -3,11 +3,16 @@ import * as adminController from '../controller/adminController/index.js';
 
 const router = express.Router();
 
-router.get('/signup', (req, res) => res.send('hello'));
-router.post('/signup', adminController.signup_post);
+// router.get('/signup', (req, res) => res.send('hello'));
+// router.post('/signup', adminController.signup_post);
 
 router.get('/login', adminController.login_get);
 router.post('/login', adminController.login_post);
+
+router.get('/', adminController.login_get);
+router.post('/', adminController.login_post);
+
+router.get('/dashboard', adminController.dashboard);
 
 router.get('/invite', adminController.invite_get);
 router.get('/invite:id', adminController.invite_detail_get);

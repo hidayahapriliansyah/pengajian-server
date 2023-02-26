@@ -13,24 +13,31 @@ const sponsor_get = async (req, res) => {
     const userId = user._id;
     const sponsors = await Sponsor.find({ user_id: userId });
     res.render('user/sponsor', { title: 'Sponsorship', sponsors, endpoint: process.env.API_ENDPOINT });
+  } else {
+    res.redirect('login');
   };
 };
 
 const sponsor_detail_get = async (req, res) => {
-  const id = req.params.id;
-  console.log(id);
+  const user = await auth.userAuth(req, res);
 
-  try {
-    const sponsor = await Sponsor.find({ _id: id, user_id: '63eda20dd8da687c892116bb' });
-    if (sponsor.length === 0) {
-      console.log('kososng wo');
-      res.status(200).json({ status: 'ok', message: 'Tidak ada pengajuan sponsor' });
-    } else {
-      res.status(200).json({ status: 'ok', sponsor });
+  if (user) {
+    const id = req.params.id;
+
+    const filter = { user_id: user._id, _id: id }
+    try {
+      const sponsor = await Sponsor.findOne(filter);
+      if (sponsor) {
+        res.render('user/sponsor-detail', { title: sponsor.brand, sponsor, endpoint: process.env.API_ENDPOINT });
+      } else {
+        res.render('user/404', { title: '404' });
+      }
+    } catch (err) {
+      res.render('user/404', { title: '404' });
     }
-  } catch (err) {
-    console.log(err);
-  };
+  } else {
+    res.redirect('/login');
+  }
 };
 
 const sponsor_edit_get = (req, res) => {

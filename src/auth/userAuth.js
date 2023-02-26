@@ -14,13 +14,13 @@ const userAuth = async (req, res) => {
       if (user) {
         return user;
       } else {
-        return res.redirect('/login');
+        return null;
       }
     } catch (err) {
-      return res.redirect('/login');
+      return null;
     }
   } else {
-    return res.redirect('/login');
+    return null;
   }
 };
 

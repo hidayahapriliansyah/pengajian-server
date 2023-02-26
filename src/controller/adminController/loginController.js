@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import Admin from '../../models/Admin.js';
 
 const login_get = (req, res) => {
-  res.send('login admin view');
+  res.render('admin/login', { title: 'Admin', endpoint: process.env.API_ENDPOINT })
 };
 
 const login_post = async (req, res) => {
